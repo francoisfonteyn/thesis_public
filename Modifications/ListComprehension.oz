@@ -242,8 +242,7 @@ define
 		  Result = H|N
 		  {InsertSortNoDuplicate T I N}
 	       elseif I == H then
-		  Result = H|N
-		  {InsertSortNoDuplicate T unit N}
+		  {Exception.raiseError 'list comprehension'(duplicateFeature(I))}
 	       else
 		  Result = I|H|N
 		  {InsertSortNoDuplicate T unit N}
@@ -323,7 +322,7 @@ define
 		  Cell = {DeclareCollect Feat Coll}
 		  {Aux T Fs Es Cs Feat|FCs Cell|CCs Li I N+1}
 	       else
-		  {Exception.raiseError 'list comprehension'} unit
+		  {Exception.raiseError 'list comprehension'(unknownFeature(C))} unit
 	       end
 	    end
 	 end
@@ -577,15 +576,15 @@ define
 		  {Aux T V|Acc V|AccD IsLazy I+1 ListDecl ExtraArgs Call|CallItself Conditions}
 	       [] forFlag(F) then % flag
 		  case F
-		  of fAtom(lazy _) then
+		  of fAtom(lazy C) then
 		     %% is flag already there ?
 		     if IsLazy then
-			{Exception.raiseError 'list comprehension'} unit
+			{Exception.raiseError 'list comprehension'(doubleFlag(lazy C))} unit
 		     else
 			{Aux T Acc AccD true I+1 ListDecl ExtraArgs CallItself Conditions}
 		     end
 		  else
-		     {Exception.raiseError 'unknown flag'#F} unit
+		     {Exception.raiseError 'list comprehension'(unknownFlag(F.1 F.2))} unit
 		  end
 	       end
 	    end
@@ -793,7 +792,7 @@ define
                                                                                 unit)
                                                                                end
                                                                        end}}
-                                             in               
+                                             in
                                                 %% call BODY if any
                                                 if BODY == unit then
                                                    fAnd(Assigns NextCall)
@@ -803,7 +802,7 @@ define
                                              end
 					     unit)
 				   end
-				elseif Levels \= nil then
+				else
 				   %%===============
 				   %% not last level
 				   local
@@ -817,8 +816,6 @@ define
 				   in
 				      {MakeNextLevelCall RangesDeeper Levels NextLevelName PreviousIds ExtraArgsForLists Result Index}
 				   end
-				else
-				   {Exception.raiseError 'Wrong number of outputs'}
 				end
 	    %% all the conditions to fullfill to keep iterating on this level
 	    RangesCondition = {MakeRangesCondition RangesConditionList}
