@@ -143,6 +143,7 @@ then
 	do
 		test_file "${file[$i]}"
 	done
+	rm "${dir}${TESTER}f"
 	exit 0
 fi
 
@@ -159,5 +160,9 @@ for x in *; do
 		test_file "$x"
 	fi
 done
+
+if [ -e "${dir}${TESTER}f" ]; then
+	rm "${dir}${TESTER}f"
+fi
 
 echo -ne "${NORMAL}"
