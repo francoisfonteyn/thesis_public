@@ -34,7 +34,7 @@ define
                in
                   if {IsRecord Field} then
                      {Level {Arity Field}#Field '#'(2:Result.2.Feat 1:Result.1.Feat 3:Result.3.Feat)}
-	       else
+                  else
                      Result.2.Feat = Field + 2
                      Result.1.Feat = Field + 1
                      Result.3.Feat = Field + 3
@@ -81,43 +81,43 @@ define
       Lim = 500000 
       Rec = {Record.make label [A for A in 1..Lim]}
       for I in 1..Lim do
-	 Rec.I = I
+         Rec.I = I
       end
       fun {Measure LC}
-	 local T1 T2 L in
-	    if LC then
-	       %% LC
-	       T1 = {Time.time}
-	       L = [2:A+2 1:A+1 3:A+3 for F:A through Rec if F > 0]
-	       T2 = {Time.time}
-	       {Browse {VirtualString.toAtom 'List comprehension took '#T2-T1#' seconds'}}
-	    else
-	       %% Eq
-	       T1 = {Time.time}
-	       L = {PreLevel}
-	       T2 = {Time.time}
-	       {Browse {VirtualString.toAtom 'Equivalent         took '#T2-T1#' seconds'}}
-	    end
-	    T2-T1
-	 end
+         local T1 T2 L in
+            if LC then
+               %% LC
+               T1 = {Time.time}
+               L = [2:A+2 1:A+1 3:A+3 for F:A through Rec if F > 0]
+               T2 = {Time.time}
+               {Browse {VirtualString.toAtom 'List comprehension took '#T2-T1#' seconds'}}
+            else
+               %% Eq
+               T1 = {Time.time}
+               L = {PreLevel}
+               T2 = {Time.time}
+               {Browse {VirtualString.toAtom 'Equivalent         took '#T2-T1#' seconds'}}
+            end
+            T2-T1
+         end
       end
       proc {Apply}
-        if @EQnocc == 10 then
-        	LCnocc := @LCnocc + 1
-        	LCtime := @LCtime + {Measure true}
-        elseif @LCnocc == 10 then
-        	EQnocc := @EQnocc + 1
-        	EQtime := @EQtime + {Measure false}
-        else
-        	if {OS.rand} mod 2 == 0 then
-        		LCnocc := @LCnocc + 1
-        		LCtime := @LCtime + {Measure true}
-        	else
-        		EQnocc := @EQnocc + 1
-        		EQtime := @EQtime + {Measure false}
-        	end
-        end
-       end
+         if @EQnocc == 10 then
+            LCnocc := @LCnocc + 1
+            LCtime := @LCtime + {Measure true}
+         elseif @LCnocc == 10 then
+            EQnocc := @EQnocc + 1
+            EQtime := @EQtime + {Measure false}
+         else
+            if {OS.rand} mod 2 == 0 then
+               LCnocc := @LCnocc + 1
+               LCtime := @LCtime + {Measure true}
+            else
+               EQnocc := @EQnocc + 1
+               EQtime := @EQtime + {Measure false}
+            end
+         end
+      end
       LCtime = {NewCell 0}
       LCnocc = {NewCell 0}
       EQtime = {NewCell 0}

@@ -2,7 +2,7 @@
 ---
 This directory contains all the modified files to make comprehensions work. They are classified by target directory in the root directory mozart2. Use 
 
-	apply.sh
+    apply.sh
 
 #### mozart2/lib/compiler/
 ###### CheckTupleSyntax.oz

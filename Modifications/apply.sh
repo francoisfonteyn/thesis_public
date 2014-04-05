@@ -52,27 +52,27 @@ echo -e "${LIGHT_RED}${BOLD}---------------------------------------
 
 # usage
 usage() {
-	echo -e "${GREEN}Usage: ${0} [-hcp]
-	-h: Display this help
-	-c: Make the changes
-	-p: Specify the path of mozart2 sources, default is ${to}${NORMAL}"
-	exit 0
+    echo -e "${GREEN}Usage: ${0} [-hcp]
+    -h: Display this help
+    -c: Make the changes
+    -p: Specify the path of mozart2 sources, default is ${to}${NORMAL}"
+    exit 0
 }
 
 # make_changes
 make_changes() {
-	echo -ne "${RED}${BOLD}"
-	cp CheckTupleSyntax.oz "${to}lib/compiler/"
-	cp ListComprehension.oz "${to}lib/compiler/"
-	cp RecordComprehension.oz "${to}lib/compiler/"
-	cp Lexer.oz "${to}lib/compiler/"
-	cp Parser.oz "${to}lib/compiler/"
-	cp TupleSyntax.oz "${to}lib/compiler/"
-	cp Unnester.oz "${to}lib/compiler/"
-	cp Macro.oz "${to}lib/compiler/"
-	cp CMakeLists.txt "${to}lib/"
-	cp oz.el "${to}opi/emacs/"
-	echo -e "${GREEN}Done.${NORMAL}"
+    echo -ne "${RED}${BOLD}"
+    cp CheckTupleSyntax.oz "${to}lib/compiler/"
+    cp ListComprehension.oz "${to}lib/compiler/"
+    cp RecordComprehension.oz "${to}lib/compiler/"
+    cp Lexer.oz "${to}lib/compiler/"
+    cp Parser.oz "${to}lib/compiler/"
+    cp TupleSyntax.oz "${to}lib/compiler/"
+    cp Unnester.oz "${to}lib/compiler/"
+    cp Macro.oz "${to}lib/compiler/"
+    cp CMakeLists.txt "${to}lib/"
+    cp oz.el "${to}opi/emacs/"
+    echo -e "${GREEN}Done.${NORMAL}"
 }
 
 doit=0
@@ -82,23 +82,23 @@ args=`getopt hcp:`
 # Parse arguments
 for((i=1;i<=$#;i++))
 do
-	case "${!i}" in
-		-h)
-			usage
-			;;
-		-c)
-			doit=1
-			;;
-		-p)
-			i=`expr $i + 1`
-			to="${!i}"
-			;;
-	esac
+    case "${!i}" in
+        -h)
+            usage
+            ;;
+        -c)
+            doit=1
+            ;;
+        -p)
+            i=`expr $i + 1`
+            to="${!i}"
+            ;;
+    esac
 done
 
 if [ $doit == 1 ]; then
-	make_changes
-	exit 0
+    make_changes
+    exit 0
 fi
 
 usage

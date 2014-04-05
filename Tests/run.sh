@@ -50,29 +50,29 @@ dir=$(echo "$0"|awk -F "/" '{F=""; for(A=1; A<NF; ++A) {F=F$A"/";} print(F);}')
 
 # test one file
 test_file() {
-	if [ $nOpt == 0 ]; then
-		echo -e "Testing \"${1}\"..."
-	else
-		echo -e "${BOLD}${CYAN}Testing \"${1}\"...${NORMAL}${GREEN}"
-	fi
-	ozc -c "${1}" -o "${1}f"
-	ozengine "${1}f" ozc-x "${1}"
-	rm "${1}f"
-	if [ $nOpt != 0 ]; then
-		echo -ne "${NORMAL}"
-	fi
+    if [ $nOpt == 0 ]; then
+        echo -e "Testing \"${1}\"..."
+    else
+        echo -e "${BOLD}${CYAN}Testing \"${1}\"...${NORMAL}${GREEN}"
+    fi
+    ozc -c "${1}" -o "${1}f"
+    ozengine "${1}f" ozc-x "${1}"
+    rm "${1}f"
+    if [ $nOpt != 0 ]; then
+        echo -ne "${NORMAL}"
+    fi
 }
 
 # usage
 usage() {
-	echo -e "${GREEN}Usage: run [-chn] [-p path] (-f file)*
-	Runs all the test (.oz) files in the directory \"${dir}\"
-	-c: compile the Tester.oz functor
-	-n: no colors are used for the results
-	-h: displays this help
-	-p: to specify the mozart path (default is ${path})
-	-f: test only the given file, this option can be used several times${NORMAL}"
-	exit 0
+    echo -e "${GREEN}Usage: run [-chn] [-p path] (-f file)*
+    Runs all the test (.oz) files in the directory \"${dir}\"
+    -c: compile the Tester.oz functor
+    -n: no colors are used for the results
+    -h: displays this help
+    -p: to specify the mozart path (default is ${path})
+    -f: test only the given file, this option can be used several times${NORMAL}"
+    exit 0
 }
 
 # header
@@ -92,77 +92,77 @@ args=`getopt chp:f:`
 # Parse arguments
 for((i=1;i<=$#;i++))
 do
-	case "${!i}" in
-		-c)
-			cOpt=1
-			;;
-		-p)
-			i=`expr $i + 1`
-			path="${!i}"
-			;;
-		-f)
-			iF=`expr $iF + 1`
-			i=`expr $i + 1`
-			file[$iF]="${!i}"
-			;;
-		-h)
-			usage
-			;;
-		-n)
-			nOpt=0
-			;;
-	esac
+    case "${!i}" in
+        -c)
+            cOpt=1
+            ;;
+        -p)
+            i=`expr $i + 1`
+            path="${!i}"
+            ;;
+        -f)
+            iF=`expr $iF + 1`
+            i=`expr $i + 1`
+            file[$iF]="${!i}"
+            ;;
+        -h)
+            usage
+            ;;
+        -n)
+            nOpt=0
+            ;;
+    esac
 done
 
 # export Mozart PATH
 if [ ! -d "$path" ]; then
-	echo -e "${RED}${BOLD}Path not found: ${path}\nPlease give a good path for Mozart.${NORMAL}"
-	exit 0
+    echo -e "${RED}${BOLD}Path not found: ${path}\nPlease give a good path for Mozart.${NORMAL}"
+    exit 0
 fi
 export PATH="$path":$PATH
 
 # compiling Tester functor if needed
 if [ $cOpt == 1 ] || [ ! -e "${dir}${TESTER}f" ]; then
-	if [ $nOpt == 0 ]; then
-		echo -e "Compiling Tester functor..."
-	else
-		echo -e "${BOLD}${CYAN}Compiling Tester functor...${NORMAL}${RED}"
-	fi
-	ozc -c "${dir}$TESTER" -o "${dir}${TESTER}f"
-	if [ $nOpt == 0 ]; then
-		echo "Done"
-	else
-		echo -e "${GREEN}Done${NORMAL}"
-	fi
+    if [ $nOpt == 0 ]; then
+        echo -e "Compiling Tester functor..."
+    else
+        echo -e "${BOLD}${CYAN}Compiling Tester functor...${NORMAL}${RED}"
+    fi
+    ozc -c "${dir}$TESTER" -o "${dir}${TESTER}f"
+    if [ $nOpt == 0 ]; then
+        echo "Done"
+    else
+        echo -e "${GREEN}Done${NORMAL}"
+    fi
 fi
 
 # test files if given
 if [ $iF -gt 0 ]
 then
-	for((i=1;i<=$iF;i++))
-	do
-		test_file "${file[$i]}"
-	done
-	rm "${dir}${TESTER}f"
-	exit 0
+    for((i=1;i<=$iF;i++))
+    do
+        test_file "${file[$i]}"
+    done
+    rm "${dir}${TESTER}f"
+    exit 0
 fi
 
 # looping in folder
 cd "$dir"
 for x in *; do
-	if [ "$x" == "$TESTER" ]; then
-		continue
-	fi
-	# get extension
-	ext=$(echo "$x" | awk -F "." '{print $NF}')
-	# check if oz file
-	if [ "$ext" == "oz" ]; then
-		test_file "$x"
-	fi
+    if [ "$x" == "$TESTER" ]; then
+        continue
+    fi
+    # get extension
+    ext=$(echo "$x" | awk -F "." '{print $NF}')
+    # check if oz file
+    if [ "$ext" == "oz" ]; then
+        test_file "$x"
+    fi
 done
 
 if [ -e "${dir}${TESTER}f" ]; then
-	rm "${dir}${TESTER}f"
+    rm "${dir}${TESTER}f"
 fi
 
 echo -ne "${NORMAL}"

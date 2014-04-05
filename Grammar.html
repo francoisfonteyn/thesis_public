@@ -1,423 +1,423 @@
 <html>
 <style>
 body {
-	font-family: Georgia, serif;
+    font-family: Georgia, serif;
 }
 a {
-	color: black;
-	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 .level {
-	/*font-variant:small-caps;*/
-	font-weight: bold;
+    /*font-variant:small-caps;*/
+    font-weight: bold;
 }
 .definition {
-	text-indent: 30px;
-	color: #aa0099;
+    text-indent: 30px;
+    color: #aa0099;
 }
 .altdefinition {
-	text-indent: 30px;
-	color: #aa0099;
+    text-indent: 30px;
+    color: #aa0099;
 }
 .regex {
-	color: #33bb33;
+    color: #33bb33;
 }
 .primary {
-	color: #3333bb;
+    color: #3333bb;
 }
 </style>
 <head>
-	<title>Oz grammar</title>
-	<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
-	<meta name="author" content="Francois Fonteyn">
+    <title>Oz grammar</title>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <meta name="author" content="Francois Fonteyn">
 </head>
 <body>
-	<div class="level" id="input">input</div>
-	<div class="definition"><a href="#compilationUnit">compilationUnit</a> eof</div>
+    <div class="level" id="input">input</div>
+    <div class="definition"><a href="#compilationUnit">compilationUnit</a> eof</div>
 
-	<br>
-	<div class="level" id="compilationUnit">compilationUnit</div>
-	<div class="definition"><a href="#cuDirective">cuDirective</a></div>
-	<div class="altdefinition"><a href="#cuDeclare">cuDeclare</a></div>
-	<div class="altdefinition"><a href="#phrase">phrase</a></div>
+    <br>
+    <div class="level" id="compilationUnit">compilationUnit</div>
+    <div class="definition"><a href="#cuDirective">cuDirective</a></div>
+    <div class="altdefinition"><a href="#cuDeclare">cuDeclare</a></div>
+    <div class="altdefinition"><a href="#phrase">phrase</a></div>
 
-	<br>
-	<div class="level" id="cuDirective">cuDirective</div>
-	<div class="definition">showSwitches</div>
-	<div class="altdefinition">popSwitches</div>
-	<div class="altdefinition">pushSwitches</div>
-	<div class="altdefinition">localSwitches</div>
+    <br>
+    <div class="level" id="cuDirective">cuDirective</div>
+    <div class="definition">showSwitches</div>
+    <div class="altdefinition">popSwitches</div>
+    <div class="altdefinition">pushSwitches</div>
+    <div class="altdefinition">localSwitches</div>
 
-	<br>
-	<div class="level" id="cuDeclare">cuDeclare</div>
-	<div class="definition">declare <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
-	<div class="altdefinition">declare <a href="#phrase">phrase</a></div>
+    <br>
+    <div class="level" id="cuDeclare">cuDeclare</div>
+    <div class="definition">declare <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
+    <div class="altdefinition">declare <a href="#phrase">phrase</a></div>
 
-	<br>
-	<div class="level" id="phrase">phrase</div>
-	<div class="definition"><a href="#lvl0">lvl0</a> <a href="#phrase">phrase</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="phrase">phrase</div>
+    <div class="definition"><a href="#lvl0">lvl0</a> <a href="#phrase">phrase</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="lvl0">lvl0</div>
-	<div class="definition"><a href="#lvl1">lvl1</a> = <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl1">lvl1</a></div>
+    <br>
+    <div class="level" id="lvl0">lvl0</div>
+    <div class="definition"><a href="#lvl1">lvl1</a> = <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl1">lvl1</a></div>
 
-	<br>
-	<div class="level" id="lvl1">lvl1</div>
-	<div class="definition"><a href="#lvl2">lvl2</a> &lt;- <a href="lvl1">lvl1</a></div>
-	<div class="altdefinition"><a href="#dotted">dotted</a> := <a href="lvl1">lvl1</a></div>
-	<div class="altdefinition"><a href="#lvl2">lvl2</a> := <a href="lvl1">lvl1</a></div>
-	<div class="altdefinition"><a href="#lvl2">lvl2</a></div>
+    <br>
+    <div class="level" id="lvl1">lvl1</div>
+    <div class="definition"><a href="#lvl2">lvl2</a> &lt;- <a href="lvl1">lvl1</a></div>
+    <div class="altdefinition"><a href="#dotted">dotted</a> := <a href="lvl1">lvl1</a></div>
+    <div class="altdefinition"><a href="#lvl2">lvl2</a> := <a href="lvl1">lvl1</a></div>
+    <div class="altdefinition"><a href="#lvl2">lvl2</a></div>
 
-	<br>
-	<div class="level" id="lvl2">lvl2</div>
-	<div class="definition"><a href="#lvl3">lvl3</a> orelse <a href="#lvl2">lvl2</a></div>
-	<div class="altdefinition"><a href="#lvl3">lvl3</a></div>
+    <br>
+    <div class="level" id="lvl2">lvl2</div>
+    <div class="definition"><a href="#lvl3">lvl3</a> orelse <a href="#lvl2">lvl2</a></div>
+    <div class="altdefinition"><a href="#lvl3">lvl3</a></div>
 
-	<br>
-	<div class="level" id="lvl3">lvl3</div>
-	<div class="definition"><a href="#lvl4">lvl4</a> andthen <a href="#lvl3">lvl3</a></div>
-	<div class="altdefinition"><a href="#lvl4">lvl4</a></div>
+    <br>
+    <div class="level" id="lvl3">lvl3</div>
+    <div class="definition"><a href="#lvl4">lvl4</a> andthen <a href="#lvl3">lvl3</a></div>
+    <div class="altdefinition"><a href="#lvl4">lvl4</a></div>
 
-	<br>
-	<div class="level" id="lvl4">lvl4</div>
-	<div class="definition"><a href="#lvl5">lvl5</a> == <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> \\= <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> &lt; <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> &gt; <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> =&lt; <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> &gt;= <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> =: <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> \\=: <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> &lt;: <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> =&lt;: <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> &gt;: <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a> &gt;=: <a href="#lvl5">lvl5</a></div>
-	<div class="altdefinition"><a href="#lvl5">lvl5</a></div>
+    <br>
+    <div class="level" id="lvl4">lvl4</div>
+    <div class="definition"><a href="#lvl5">lvl5</a> == <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> \\= <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> &lt; <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> &gt; <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> =&lt; <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> &gt;= <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> =: <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> \\=: <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> &lt;: <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> =&lt;: <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> &gt;: <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a> &gt;=: <a href="#lvl5">lvl5</a></div>
+    <div class="altdefinition"><a href="#lvl5">lvl5</a></div>
 
-	<br>
-	<div class="level" id="lvl5">lvl5</div>
-	<div class="definition"><a href="#lvl6">lvl6</a> :: <a href="#lvl6">lvl6</a></div>
-	<div class="altdefinition"><a href="#lvl6">lvl6</a> ::: <a href="#lvl6">lvl6</a></div>
-	<div class="altdefinition"><a href="#lvl6">lvl6</a></div>
+    <br>
+    <div class="level" id="lvl5">lvl5</div>
+    <div class="definition"><a href="#lvl6">lvl6</a> :: <a href="#lvl6">lvl6</a></div>
+    <div class="altdefinition"><a href="#lvl6">lvl6</a> ::: <a href="#lvl6">lvl6</a></div>
+    <div class="altdefinition"><a href="#lvl6">lvl6</a></div>
 
-	<br>
-	<div class="level" id="lvl6">lvl6</div>
-	<div class="altdefinition"><a href="#lvl7">lvl7</a> | <a href="#lvl6">lvl6</a></div>
-	<div class="altdefinition"><a href="#lvl7">lvl7</a></div>
+    <br>
+    <div class="level" id="lvl6">lvl6</div>
+    <div class="altdefinition"><a href="#lvl7">lvl7</a> | <a href="#lvl6">lvl6</a></div>
+    <div class="altdefinition"><a href="#lvl7">lvl7</a></div>
 
-	<br>
-	<div class="level" id="lvl7">lvl7</div>
-	<div class="definition"><a href="#lvl8">lvl8</a> <span class="regex">plus(</span># <a href="#lvl8">lvl8</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvl8">lvl8</a></div>
+    <br>
+    <div class="level" id="lvl7">lvl7</div>
+    <div class="definition"><a href="#lvl8">lvl8</a> <span class="regex">plus(</span># <a href="#lvl8">lvl8</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvl8">lvl8</a></div>
 
-	<br>
-	<div class="level" id="lvl8">lvl8</div>
-	<div class="definition"><a href="#lvl9">lvl9</a> <span class="regex">plus(</span>+ <a href="#lvl9">lvl9</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvl9">lvl9</a> <span class="regex">plus(</span>- <a href="#lvl9">lvl9</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvl9">lvl9</a></div>
+    <br>
+    <div class="level" id="lvl8">lvl8</div>
+    <div class="definition"><a href="#lvl9">lvl9</a> <span class="regex">plus(</span>+ <a href="#lvl9">lvl9</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvl9">lvl9</a> <span class="regex">plus(</span>- <a href="#lvl9">lvl9</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvl9">lvl9</a></div>
 
-	<br>
-	<div class="level" id="lvl9">lvl9</div>
-	<div class="definition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>* <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>/ <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>mod <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>div <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#lvlA">lvlA</a></div>
+    <br>
+    <div class="level" id="lvl9">lvl9</div>
+    <div class="definition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>* <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>/ <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>mod <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvlA">lvlA</a> <span class="regex">plus(</span>div <a href="#lvlA">lvlA</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#lvlA">lvlA</a></div>
 
-	<br>
-	<div class="level" id="lvlA">lvlA</div>
-	<div class="definition"><a href="#lvlB">lvlB</a> , <a href="#lvlA">lvlA</a></div>
-	<div class="altdefinition"><a href="#lvlB">lvlB</a></div>
+    <br>
+    <div class="level" id="lvlA">lvlA</div>
+    <div class="definition"><a href="#lvlB">lvlB</a> , <a href="#lvlA">lvlA</a></div>
+    <div class="altdefinition"><a href="#lvlB">lvlB</a></div>
 
-	<br>
-	<div class="level" id="lvlB">lvlB</div>
-	<div class="definition">~ <a href="#lvlC">lvlC</a></div>
-	<div class="altdefinition"><a href="#lvlC">lvlC</a></div>
+    <br>
+    <div class="level" id="lvlB">lvlB</div>
+    <div class="definition">~ <a href="#lvlC">lvlC</a></div>
+    <div class="altdefinition"><a href="#lvlC">lvlC</a></div>
 
-	<br>
-	<div class="level" id="lvlC">lvlC</div>
-	<div class="definition"><a href="#dotted">dotted</a></div>
-	<div class="altdefinition"><a href="#lvlD">lvlD</a></div>
+    <br>
+    <div class="level" id="lvlC">lvlC</div>
+    <div class="definition"><a href="#dotted">dotted</a></div>
+    <div class="altdefinition"><a href="#lvlD">lvlD</a></div>
 
-	<br>
-	<div class="level" id="lvlD">lvlD</div>
-	<div class="definition">@ <a href="#lvlD">lvlD</a></div>
-	<div class="altdefinition">!! <a href="#lvlD">lvlD</a></div>
-	<div class="altdefinition"><a href="#atPhrase">atPhrase</a></div>
+    <br>
+    <div class="level" id="lvlD">lvlD</div>
+    <div class="definition">@ <a href="#lvlD">lvlD</a></div>
+    <div class="altdefinition">!! <a href="#lvlD">lvlD</a></div>
+    <div class="altdefinition"><a href="#atPhrase">atPhrase</a></div>
 
-	<br>
-	<div class="level" id="dotted">dotted</div>
-	<div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>. <a href="#lvlD">lvlD</a><span class="regex">)</span></div>
-	<div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>^ <a href="#lvlD">lvlD</a><span class="regex">)</span></div>
-	<div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>. <a href="#feature">feature</a><span class="regex">)</span></div>
-	<div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>^ <a href="#feature">feature</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#"></a></div>
+    <br>
+    <div class="level" id="dotted">dotted</div>
+    <div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>. <a href="#lvlD">lvlD</a><span class="regex">)</span></div>
+    <div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>^ <a href="#lvlD">lvlD</a><span class="regex">)</span></div>
+    <div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>. <a href="#feature">feature</a><span class="regex">)</span></div>
+    <div class="definition"><a href="#lvlD">lvlD</a> <span class="regex">plus(</span>^ <a href="#feature">feature</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#"></a></div>
 
-	<br>
-	<div class="level" id="atPhrase">atPhrase</div>
-	<div class="definition">local <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">( <a href="#inPhrase">inPhrase</a> )</div>
-	<div class="altdefinition">proc <span class="regex">star(atom)</span> { <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> } <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">fun <span class="regex">star(atom)</span> { <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> } <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">{ <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> }</div>
-	<div class="altdefinition">if <a href="#internalIf">internalIf</a> end</div>
-	<div class="altdefinition">case <a href="#internalCase">internalCase</a> end</div>
-	<div class="altdefinition">lock <a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">lock <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">thread <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">try <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">try <a href="#inPhrase">inPhrase</a> finally <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">try <a href="#inPhrase">inPhrase</a> catch <a href="#caseClauses">caseClauses</a> end</div>
-	<div class="altdefinition">try <a href="#inPhrase">inPhrase</a> catch <a href="#caseClauses">caseClauses</a> finally <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">cond <a href="#condClauses">condClauses</a> <a href="#optElse">optElse</a> end</div>
-	<div class="altdefinition">dis <a href="#disClauses">disClauses</a> end</div>
-	<div class="altdefinition">or <a href="#disClauses">disClauses</a> end</div>
-	<div class="altdefinition">choice <a href="#inPhrase">inPhrase</a> <span class="regex">star(</span>[] <a href="#inPhrase">inPhrase</a><span class="regex">)</span></div>
-	<div class="altdefinition">raise <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">class <a href="#exprOrImplDollar">exprOrImplDollar</a> <span class="regex">star(</span><a href="#classDescr">classDescr</a><span class="regex">)</span> <span class="regex">star(</span><a href="#method">method</a><span class="regex">)</span> end</div>
-	<div class="altdefinition">functor <a href="#exprOrImplDollar">exprOrImplDollar</a> <span class="regex">star(</span><a href="#funDescr">funDescr</a><span class="regex">)</span> end</div>
-	<div class="altdefinition">for <span class="regex">star(</span><a href="#forDecl">forDecl</a><span class="regex">)</span> do <a href="#inPhrase">inPhrase</a> end</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> ]</div>
-	<div class="altdefinition"><span class="primary">atomL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> )</div>
-	<div class="altdefinition"><span class="primary">atomL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
-	<div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> )</div>
-	<div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> body <a href="#phrase">phrase</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
-	<div class="altdefinition">skip</div>
-	<div class="altdefinition">fail</div>
-	<div class="altdefinition">self</div>
-	<div class="altdefinition"><span class="primary">string</span></div>
-	<div class="altdefinition"><span class="primary">float</span></div>
-	<div class="altdefinition"><a href="#dollar">dollar</a></div>
-	<div class="altdefinition"><a href="#underscore">underscore</a></div>
-	<div class="altdefinition"><a href="#feature">feature</a></div>
-	<div class="altdefinition"><a href="#escVar">escVar</a></div>
+    <br>
+    <div class="level" id="atPhrase">atPhrase</div>
+    <div class="definition">local <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">( <a href="#inPhrase">inPhrase</a> )</div>
+    <div class="altdefinition">proc <span class="regex">star(atom)</span> { <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> } <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">fun <span class="regex">star(atom)</span> { <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> } <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">{ <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> }</div>
+    <div class="altdefinition">if <a href="#internalIf">internalIf</a> end</div>
+    <div class="altdefinition">case <a href="#internalCase">internalCase</a> end</div>
+    <div class="altdefinition">lock <a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">lock <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">thread <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">try <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">try <a href="#inPhrase">inPhrase</a> finally <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">try <a href="#inPhrase">inPhrase</a> catch <a href="#caseClauses">caseClauses</a> end</div>
+    <div class="altdefinition">try <a href="#inPhrase">inPhrase</a> catch <a href="#caseClauses">caseClauses</a> finally <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">cond <a href="#condClauses">condClauses</a> <a href="#optElse">optElse</a> end</div>
+    <div class="altdefinition">dis <a href="#disClauses">disClauses</a> end</div>
+    <div class="altdefinition">or <a href="#disClauses">disClauses</a> end</div>
+    <div class="altdefinition">choice <a href="#inPhrase">inPhrase</a> <span class="regex">star(</span>[] <a href="#inPhrase">inPhrase</a><span class="regex">)</span></div>
+    <div class="altdefinition">raise <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">class <a href="#exprOrImplDollar">exprOrImplDollar</a> <span class="regex">star(</span><a href="#classDescr">classDescr</a><span class="regex">)</span> <span class="regex">star(</span><a href="#method">method</a><span class="regex">)</span> end</div>
+    <div class="altdefinition">functor <a href="#exprOrImplDollar">exprOrImplDollar</a> <span class="regex">star(</span><a href="#funDescr">funDescr</a><span class="regex">)</span> end</div>
+    <div class="altdefinition">for <span class="regex">star(</span><a href="#forDecl">forDecl</a><span class="regex">)</span> do <a href="#inPhrase">inPhrase</a> end</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span> ]</div>
+    <div class="altdefinition"><span class="primary">atomL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> )</div>
+    <div class="altdefinition"><span class="primary">atomL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
+    <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> )</div>
+    <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> body <a href="#phrase">phrase</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> through <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> ]</div>
+    <div class="altdefinition">skip</div>
+    <div class="altdefinition">fail</div>
+    <div class="altdefinition">self</div>
+    <div class="altdefinition"><span class="primary">string</span></div>
+    <div class="altdefinition"><span class="primary">float</span></div>
+    <div class="altdefinition"><a href="#dollar">dollar</a></div>
+    <div class="altdefinition"><a href="#underscore">underscore</a></div>
+    <div class="altdefinition"><a href="#feature">feature</a></div>
+    <div class="altdefinition"><a href="#escVar">escVar</a></div>
 
-	<br>
-	<div class="level" id="forExpression">forExpression</div>
-	<div class="definition"><a href="#subtree">subtree</a></div>
-	<div class="altdefinition"><a href="#subtree">subtree</a> if <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#feature">feature</a> : collect : <a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="forExpression">forExpression</div>
+    <div class="definition"><a href="#subtree">subtree</a></div>
+    <div class="altdefinition"><a href="#subtree">subtree</a> if <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#feature">feature</a> : collect : <a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="forComprehension">forComprehension</div>
-	<div class="definition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span></div>
-	<div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a></div>
-	<div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a> <a href="#forComprehension">forComprehension</a></div>
+    <br>
+    <div class="level" id="forComprehension">forComprehension</div>
+    <div class="definition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span></div>
+    <div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a></div>
+    <div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a> <a href="#forComprehension">forComprehension</a></div>
 
-	<br>
-	<div class="level" id="forListDecl">forListDecl</div>
-	<div class="definition"><a href="#lvl0">lvl0</a> in <a href="#forListGen">forListGen</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> from <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><span class="primary">atom</span></div>
+    <br>
+    <div class="level" id="forListDecl">forListDecl</div>
+    <div class="definition"><a href="#lvl0">lvl0</a> in <a href="#forListGen">forListGen</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> from <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><span class="primary">atom</span></div>
 
-	<br>
-	<div class="level" id="forListGen">forListGen</div>
-	<div class="definition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition">( <a href="#forGenC">forGenC</a> )</div>
-	<div class="altdefinition"><a href="#forGenC">forGenC</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="forListGen">forListGen</div>
+    <div class="definition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition">( <a href="#forGenC">forGenC</a> )</div>
+    <div class="altdefinition"><a href="#forGenC">forGenC</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="forDecl">forDecl</div>
-	<div class="definition"><a href="#lvl0">lvl0</a> in <a href="#forGen">forGen</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> from <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><span class="primary">atom</span> : <a href="#lvl0">lvl0</a></div><!-- break, continue, ... -->
-	<div class="altdefinition"><span class="primary">atom</span></div>
+    <br>
+    <div class="level" id="forDecl">forDecl</div>
+    <div class="definition"><a href="#lvl0">lvl0</a> in <a href="#forGen">forGen</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> from <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><span class="primary">atom</span> : <a href="#lvl0">lvl0</a></div><!-- break, continue, ... -->
+    <div class="altdefinition"><span class="primary">atom</span></div>
 
-	<br>
-	<div class="level" id="forGen">forGen</div>
-	<div class="definition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition">( <a href="#forGenC">forGenC</a> )</div>
-	<div class="altdefinition"><a href="#forGenC">forGenC</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="forGen">forGen</div>
+    <div class="definition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> .. <a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition">( <a href="#forGenC">forGenC</a> )</div>
+    <div class="altdefinition"><a href="#forGenC">forGenC</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="forGenC">forGenC</div>
-	<div class="definition"><a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="forGenC">forGenC</div>
+    <div class="definition"><a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a> ; <a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="exprOrImplDollar">exprOrImplDollar</div>
-	<div class="definition"><a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><span class="regex">(</span><span class="regex">)</span></div>
+    <br>
+    <div class="level" id="exprOrImplDollar">exprOrImplDollar</div>
+    <div class="definition"><a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><span class="regex">(</span><span class="regex">)</span></div>
 
-	<br>
-	<div class="level" id="dollar">dollar</div>
-	<div class="definition">$</div>
+    <br>
+    <div class="level" id="dollar">dollar</div>
+    <div class="definition">$</div>
 
-	<br>
-	<div class="level" id="underscore">underscore</div>
-	<div class="definition">_</div>
+    <br>
+    <div class="level" id="underscore">underscore</div>
+    <div class="definition">_</div>
 
-	<br>
-	<div class="level" id="escVar">escVar</div>
-	<div class="definition">! <span class="primary">variable</span></div>
+    <br>
+    <div class="level" id="escVar">escVar</div>
+    <div class="definition">! <span class="primary">variable</span></div>
 
-	<br>
-	<div class="level" id="escVarL">escVarL</div>
-	<div class="definition">! <span class="primary">variableL</span></div>
+    <br>
+    <div class="level" id="escVarL">escVarL</div>
+    <div class="definition">! <span class="primary">variableL</span></div>
 
-	<br>
-	<div class="level" id="internalIf">internalIf</div>
-	<div class="definition"><a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a> <a href="#optElse2">optElse2</a></div>
+    <br>
+    <div class="level" id="internalIf">internalIf</div>
+    <div class="definition"><a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a> <a href="#optElse2">optElse2</a></div>
 
-	<br>
-	<div class="level" id="internalCase">internalCase</div>
-	<div class="definition"><a href="#phrase">phrase</a> of <a href="#caseClauses">caseClauses</a> <a href="#optElse2">optElse2</a></div>
+    <br>
+    <div class="level" id="internalCase">internalCase</div>
+    <div class="definition"><a href="#phrase">phrase</a> of <a href="#caseClauses">caseClauses</a> <a href="#optElse2">optElse2</a></div>
 
-	<br>
-	<div class="level" id="funDescr">funDescr</div>
-	<div class="definition">define <a href="#phrase">phrase</a></div>
-	<div class="altdefinition">define <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
-	<div class="altdefinition">prepare <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
-	<div class="altdefinition">import <span class="regex">plus(</span><a href="#importDecl">importDecl</a><span class="regex">)</span></div>
-	<div class="altdefinition">require <span class="regex">plus(</span><a href="#importDecl">importDecl</a><span class="regex">)</span></div>
-	<div class="altdefinition">export <span class="regex">plus(</span><a href="#importDecl">exportDecl</a><span class="regex">)</span></div>
+    <br>
+    <div class="level" id="funDescr">funDescr</div>
+    <div class="definition">define <a href="#phrase">phrase</a></div>
+    <div class="altdefinition">define <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
+    <div class="altdefinition">prepare <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
+    <div class="altdefinition">import <span class="regex">plus(</span><a href="#importDecl">importDecl</a><span class="regex">)</span></div>
+    <div class="altdefinition">require <span class="regex">plus(</span><a href="#importDecl">importDecl</a><span class="regex">)</span></div>
+    <div class="altdefinition">export <span class="regex">plus(</span><a href="#importDecl">exportDecl</a><span class="regex">)</span></div>
 
-	<br>
-	<div class="level" id="importDecl">importDecl</div>
-	<div class="definition"><span class="primary">variable</span> <a href="#optAt">optAt</a></div>
-	<div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">integer</span> : <span class="primary">variable</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
-	<div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">atom</span> : <span class="primary">variable</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
-	<div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">integer</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
-	<div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">atom</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
+    <br>
+    <div class="level" id="importDecl">importDecl</div>
+    <div class="definition"><span class="primary">variable</span> <a href="#optAt">optAt</a></div>
+    <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">integer</span> : <span class="primary">variable</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
+    <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">atom</span> : <span class="primary">variable</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
+    <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">integer</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
+    <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">plus(</span><span class="primary">atom</span><span class="regex">)</span> ) <a href="#optAt">optAt</a></div>
 
-	<br>
-	<div class="level" id="optAt">optAt</div>
-	<div class="definition">at <span class="primary">atom</a></div>
-	<div class="altdefinition"><span class="regex">(</span><span class="regex">)</span></div>
+    <br>
+    <div class="level" id="optAt">optAt</div>
+    <div class="definition">at <span class="primary">atom</a></div>
+    <div class="altdefinition"><span class="regex">(</span><span class="regex">)</span></div>
 
-	<br>
-	<div class="level" id="exportDecl">exportDecl</div>
-	<div class="definition"><span class="primary">atom</a> : <span class="primary">variable</span></div>
-	<div class="altdefinition"><span class="primary">integer</a> : <span class="primary">variable</span></div>
-	<div class="altdefinition"><span class="primary">variable</span></div>
+    <br>
+    <div class="level" id="exportDecl">exportDecl</div>
+    <div class="definition"><span class="primary">atom</a> : <span class="primary">variable</span></div>
+    <div class="altdefinition"><span class="primary">integer</a> : <span class="primary">variable</span></div>
+    <div class="altdefinition"><span class="primary">variable</span></div>
 
-	<br>
-	<div class="level" id="classDescr">classDescr</div>
-	<div class="definition">from <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span></div>
-	<div class="definition">prop <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span></div>
-	<div class="definition">attr <span class="regex">plus(</span><a href="#attrOrFeat">attrOrFeat</a><span class="regex">)</span></div>
-	<div class="definition">feat <span class="regex">plus(</span><a href="#attrOrFeat">attrOrFeat</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#"></a></div>
+    <br>
+    <div class="level" id="classDescr">classDescr</div>
+    <div class="definition">from <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span></div>
+    <div class="definition">prop <span class="regex">plus(</span><a href="#lvl0">lvl0</a><span class="regex">)</span></div>
+    <div class="definition">attr <span class="regex">plus(</span><a href="#attrOrFeat">attrOrFeat</a><span class="regex">)</span></div>
+    <div class="definition">feat <span class="regex">plus(</span><a href="#attrOrFeat">attrOrFeat</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#"></a></div>
 
-	<br>
-	<div class="level" id="attrOrFeat">attrOrFeat</div>
-	<div class="definition"><a href="#escVar">escVar</a></div>
-	<div class="definition"><a href="#escVar">escVar</a> : <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#escVar">feature</a></div>
-	<div class="altdefinition"><a href="#escVar">feature</a> : <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#"></a></div>
+    <br>
+    <div class="level" id="attrOrFeat">attrOrFeat</div>
+    <div class="definition"><a href="#escVar">escVar</a></div>
+    <div class="definition"><a href="#escVar">escVar</a> : <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#escVar">feature</a></div>
+    <div class="altdefinition"><a href="#escVar">feature</a> : <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#"></a></div>
 
-	<br>
-	<div class="level" id="method">method</div>
-	<div class="definition">meth <a href="#methodHead">methodHead</a> <a href="#inPhrase">inPhrase</a> end</div>
+    <br>
+    <div class="level" id="method">method</div>
+    <div class="definition">meth <a href="#methodHead">methodHead</a> <a href="#inPhrase">inPhrase</a> end</div>
 
-	<br>
-	<div class="level" id="methodHead">methodHead</div>
-	<div class="definition"><a href="#methodHead1">methodHead1</a> = <a href="#variable">variable</a></div>
-	<div class="altdefinition"><a href="#methodHead1">methodHead1</a></div>
+    <br>
+    <div class="level" id="methodHead">methodHead</div>
+    <div class="definition"><a href="#methodHead1">methodHead1</a> = <a href="#variable">variable</a></div>
+    <div class="altdefinition"><a href="#methodHead1">methodHead1</a></div>
 
-	<br>
-	<div class="level" id="methodHead1">methodHead1</div>
-	<div class="definition"><span class="primary">atom</a> <span class="primary">variable</a> <a href="#escVar">escVar</a></div>
-	<div class="altdefinition"><span class="primary">atomL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a></div>
-	<div class="altdefinition"><span class="primary">atomL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a> ...</div>
-	<div class="altdefinition"><span class="primary">variableL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a></div>
-	<div class="altdefinition"><span class="primary">variableL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a> ...</div>
-	<div class="altdefinition"><span class="primary">escVarL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a></div>
-	<div class="altdefinition"><span class="primary">escVarL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a> ...</div>
+    <br>
+    <div class="level" id="methodHead1">methodHead1</div>
+    <div class="definition"><span class="primary">atom</a> <span class="primary">variable</a> <a href="#escVar">escVar</a></div>
+    <div class="altdefinition"><span class="primary">atomL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a></div>
+    <div class="altdefinition"><span class="primary">atomL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a> ...</div>
+    <div class="altdefinition"><span class="primary">variableL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a></div>
+    <div class="altdefinition"><span class="primary">variableL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a> ...</div>
+    <div class="altdefinition"><span class="primary">escVarL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a></div>
+    <div class="altdefinition"><span class="primary">escVarL</a> ( <span class="regex">star(</a><a href="#methFormal">methFormal</a><span class="regex">)</a> ...</div>
 
-	<br>
-	<div class="level" id="methFormal">methFormal</div>
-	<div class="definition"><a href="#feature">feature</a> : <a href="#methFormAt">methFormAt</a> <a href="#methDefault">methDefault</a></div>
-	<div class="altdefinition"><a href="#methFormAt">methFormAt</a> <a href="#methDefault">methDefault</a></div>
+    <br>
+    <div class="level" id="methFormal">methFormal</div>
+    <div class="definition"><a href="#feature">feature</a> : <a href="#methFormAt">methFormAt</a> <a href="#methDefault">methDefault</a></div>
+    <div class="altdefinition"><a href="#methFormAt">methFormAt</a> <a href="#methDefault">methDefault</a></div>
 
-	<br>
-	<div class="level" id="methFormAt">methFormAt</div>
-	<div class="definition"><span class="primary">variable</a></div>
-	<div class="altdefinition"><a href="#dollar">dollar</a></div>
-	<div class="altdefinition"><a href="#underscore">underscore</a></div>
+    <br>
+    <div class="level" id="methFormAt">methFormAt</div>
+    <div class="definition"><span class="primary">variable</a></div>
+    <div class="altdefinition"><a href="#dollar">dollar</a></div>
+    <div class="altdefinition"><a href="#underscore">underscore</a></div>
 
-	<br>
-	<div class="level" id="methDefault">methDefault</div>
-	<div class="definition">&lt;= <a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="methDefault">methDefault</div>
+    <div class="definition">&lt;= <a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="condClauses">condClauses</div>
-	<div class="definition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span></a>[] <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
+    <br>
+    <div class="level" id="condClauses">condClauses</div>
+    <div class="definition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span></a>[] <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
 
-	<br>
-	<div class="level" id="condClauses">disClauses</div>
-	<div class="definition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a><span class="regex">)</span></div>
-	<div class="altdefinition"><a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a><span class="regex">)</span></div>
+    <br>
+    <div class="level" id="condClauses">disClauses</div>
+    <div class="definition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#phrase">phrase</a> then <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> then <a href="#phrase">phrase</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a><span class="regex">)</span></div>
+    <div class="altdefinition"><a href="#phrase">phrase</a> <span class="regex">star(</span>[] <a href="#phrase">phrase</a><span class="regex">)</span></div>
 
-	<br>
-	<div class="level" id="caseClauses">caseClauses</div>
-	<div class="definition"><a href="#caseClause">caseClause</a> [] <a href="">caseClauses</a></div>
-	<div class="altdefinition"><a href="#caseClause">caseClause</a> elseof <a href="">caseClauses</a></div>
-	<div class="altdefinition"><a href="#caseClause">caseClause</a></div>
+    <br>
+    <div class="level" id="caseClauses">caseClauses</div>
+    <div class="definition"><a href="#caseClause">caseClause</a> [] <a href="">caseClauses</a></div>
+    <div class="altdefinition"><a href="#caseClause">caseClause</a> elseof <a href="">caseClauses</a></div>
+    <div class="altdefinition"><a href="#caseClause">caseClause</a></div>
 
-	<br>
-	<div class="level" id="inPhrase">inPhrase</div>
-	<div class="definition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
-	<div class="altdefinition"><a href="#phrase">phrase</a></div>
+    <br>
+    <div class="level" id="inPhrase">inPhrase</div>
+    <div class="definition"><a href="#phrase">phrase</a> in <a href="#phrase">phrase</a></div>
+    <div class="altdefinition"><a href="#phrase">phrase</a></div>
 
-	<br>
-	<div class="level" id="optElse2">optElse2</div>
-	<div class="definition">elseif <a href="#internalIf">internalIf</a></div>
-	<div class="altdefinition">elsecase <a href="#internalCase">internalCase</a></div>
-	<div class="altdefinition"><a href="#optElse">optElse</a></div>
+    <br>
+    <div class="level" id="optElse2">optElse2</div>
+    <div class="definition">elseif <a href="#internalIf">internalIf</a></div>
+    <div class="altdefinition">elsecase <a href="#internalCase">internalCase</a></div>
+    <div class="altdefinition"><a href="#optElse">optElse</a></div>
 
-	<br>
-	<div class="level" id="optElse">optElse</div>
-	<div class="definition">else <a href="#phrase">phrase</a></div>
-	<div class="altdefinition"><span class="regex">(</span><span class="regex">)</span></div>
+    <br>
+    <div class="level" id="optElse">optElse</div>
+    <div class="definition">else <a href="#phrase">phrase</a></div>
+    <div class="altdefinition"><span class="regex">(</span><span class="regex">)</span></div>
 
-	<br>
-	<div class="level" id="subtree">subtree</div>
-	<div class="definition"><a href="#feature">feature</a> : <a href="#lvl0">lvl0</a></div>
-	<div class="altdefinition"><a href="#lvl0">lvl0</a></div>
+    <br>
+    <div class="level" id="subtree">subtree</div>
+    <div class="definition"><a href="#feature">feature</a> : <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition"><a href="#lvl0">lvl0</a></div>
 
-	<br>
-	<div class="level" id="feature">feature</div>
-	<div class="definition"><span class="primary">variable</span></div>
-	<div class="altdefinition"><span class="primary">atom</span></div>
-	<div class="altdefinition"><span class="primary">integer</span></div>
-	<div class="altdefinition"><span class="primary">character</span></div>
+    <br>
+    <div class="level" id="feature">feature</div>
+    <div class="definition"><span class="primary">variable</span></div>
+    <div class="altdefinition"><span class="primary">atom</span></div>
+    <div class="altdefinition"><span class="primary">integer</span></div>
+    <div class="altdefinition"><span class="primary">character</span></div>
 
-	<br>
-	<div class="level" id="caseClause">caseClause</div>
-	<div class="definition"><a href="#pat0">pat0</a> andthen <a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a></div>
-	<div class="definition"><a href="#pat0">pat0</a> andthen <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a></div>
-	<div class="altdefinition"><a href="#pat0">pat0</a> then <a href="#inPhrase">inPhrase</a></div>
+    <br>
+    <div class="level" id="caseClause">caseClause</div>
+    <div class="definition"><a href="#pat0">pat0</a> andthen <a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a></div>
+    <div class="definition"><a href="#pat0">pat0</a> andthen <a href="#phrase">phrase</a> in <a href="#phrase">phrase</a> then <a href="#inPhrase">inPhrase</a></div>
+    <div class="altdefinition"><a href="#pat0">pat0</a> then <a href="#inPhrase">inPhrase</a></div>
 
-	<br>
-	<div class="level" id="pat0">pat0</div>
-	<div class="definition"><a href="#lvl4">lvl4</a> = <a href="#pat0">pat0</a></div>
-	<div class="altdefinition"><a href="#lvl4">lvl4</a></div>
+    <br>
+    <div class="level" id="pat0">pat0</div>
+    <div class="definition"><a href="#lvl4">lvl4</a> = <a href="#pat0">pat0</a></div>
+    <div class="altdefinition"><a href="#lvl4">lvl4</a></div>
 </body>
 </html>
