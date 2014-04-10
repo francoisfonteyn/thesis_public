@@ -27,6 +27,8 @@ A copy of all the modified files in Mozart2.
     Modifications/apply.sh
 ##### Mozart2.app:
 The application Mozart2 for Mavericks.
+##### Syntax.pdf:
+A tutorial to get started with comprehensions.
 ##### Tests:           
 All the tests to run in terminal.
 
