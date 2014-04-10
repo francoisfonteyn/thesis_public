@@ -25,7 +25,7 @@ A bunch of useful graphs.
 A copy of all the modified files in Mozart2.
 
     Modifications/apply.sh
-##### Mozart2.app:
+##### Mozart2.zip:
 The application Mozart2 for Mavericks.
 ##### Syntax.pdf:
 A tutorial to get started with comprehensions.
