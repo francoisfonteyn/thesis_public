@@ -12,23 +12,14 @@ François Fonteyn
 
 # Contents:
 ---
-##### Code: 
-All Mozart2, llvm, clang and gtest sources and builds with list comprehensions.
-
-    Code/setup.sh
-    Code/build.sh
-##### Grammar.html: 
-The updated grammar of Mozart2 in HTML.
 ##### Graphs:          
 A bunch of useful graphs.
 ##### Modifications:
 A copy of all the modified files in Mozart2.
 
     Modifications/apply.sh
-##### Mozart2.zip:
-The application Mozart2 for Mavericks.
-##### Syntax.pdf:
-A tutorial to get started with comprehensions.
+##### mozart2: 
+The mozart2 sources.
 ##### Tests:           
 All the tests to run in terminal.
 
@@ -38,6 +29,10 @@ Examples of small applications with comprehensions.
 Examples of concurrent applications with list comprehensions.
 ##### Transformations: 
 The functional transformations used for list comprehensions.
+##### Grammar.html: 
+The updated grammar of Mozart2 in HTML.
+##### Mozart2.zip:
+The application Mozart2 for Mavericks.
 ##### Thesis.pdf:      
 The report that contains an introduction, the implementation as well as examples and explanations.
 
