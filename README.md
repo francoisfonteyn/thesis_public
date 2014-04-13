@@ -18,8 +18,6 @@ A bunch of useful graphs.
 A copy of all the modified files in Mozart2.
 
     Modifications/apply.sh
-##### mozart2: 
-The mozart2 sources.
 ##### Tests:           
 All the tests to run in terminal.
 
@@ -29,6 +27,8 @@ Examples of small applications with comprehensions.
 Examples of concurrent applications with list comprehensions.
 ##### Transformations: 
 The functional transformations used for list comprehensions.
+##### mozart2: 
+The mozart2 sources.
 ##### Grammar.html: 
 The updated grammar of Mozart2 in HTML.
 ##### Mozart2.zip:
