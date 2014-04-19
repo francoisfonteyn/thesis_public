@@ -306,6 +306,7 @@ define
                     [lvl0 '..' lvl0 opt(seq2(';' lvl0) unit)]#fun{$ [S1 _ S2 S3]}forGeneratorInt(S1 S2 S3)end
                     ['(' forGenC ')']#fun{$ [_ S _]}S end
                     forGenC
+                    [lvl0 ':' lvl0]#fun{$ [S1 _ S2]}forGeneratorList(fBuffer(S1 S2))end
                     lvl0#fun{$ S}forGeneratorList(S)end
                     )
       forDecl:alt(
