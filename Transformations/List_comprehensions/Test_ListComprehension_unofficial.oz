@@ -1,63 +1,140 @@
-%%%
-%%% Author:
-%%%   François Fonteyn <francoisfonteyn@gmail.com>
-%%%
-%%% Copyright:
-%%%   François Fonteyn, 2014
-%%%
-%%% Last change:
-%%%   $Date$ by $Author$
-%%%   $Revision$
-%%%
-%%% This file is part of Mozart, an implementation of Oz 3:
-%%%    http://www.mozart-oz.org
-%%%
-%%% See the file "LICENSE" or
-%%%    http://www.mozart-oz.org/LICENSE.html
-%%% for information on usage and redistribution
-%%% of this file, and for a DISCLAIMER OF ALL
-%%% WARRANTIES.
-%%%
-
-%% Explanations related to this file are in
-%% https://github.com/francoisfonteyn/thesis_public/blob/master/Thesis.pdf
-%% Complete syntax
-%% https://github.com/francoisfonteyn/thesis_public/blob/master/Syntax_unofficial.pdf
-
-functor
-import
-   BootName(newNamed:NewNamedName) at 'x-oz://boot/Name'
-
-export
-   Compile
-
-prepare
-   skip
-
-define
+local
+   FakeCoords = pos
+   FakeExpr1  = [forExpression(expression unit)]
+   FakeExpr2  = [forExpression(expression1 unit) forExpression(expression2 conditon2)]
+   FakeExpr3  = [forExpression(expression1 condition1)
+                 forExpression(fColon(fInt(1 unit) expression2) condition2)
+                 forExpression(fColon(fAtom(a unit) expression3) unit)]
+   FakeExpr4  = [forExpression(fColon(fInt(2 unit) expression) unit)]
+   FakeExpr5  = [forFeature(fAtom(collect unit) fColon(fAtom(c unit) fVar('Collect' unit)))
+                 forExpression(fColon(fInt(2 unit) expression) unit)
+                 forExpression(expression1 condition1)
+                ]
+   FakeBody   = body1
+   FakeLevels0 = [
+                  fForComprehensionLevel(
+                     [forFlag(fAtom(lazy pos))
+                      forPattern(fVar('A' unit) forGeneratorInt(fVar('LAInts' pos) fVar('HAInts' pos) unit))]
+                     unit
+                     pos)
+                 ]
+   FakeLevels1 = [
+                  fForComprehensionLevel(
+                     [forPattern(
+                         fVar('ACsty' pos)
+                         forGeneratorC(fVar('BACsty' pos) fVar('CACsty' pos) fOpApply('+' ['ACsty' 'SACsty'] unit))
+                         )
+                      forPattern(
+                         fWildcard(pos)%fVar('AInts' pos)
+                         forGeneratorInt(fVar('LAInts' pos) fVar('HAInts' pos) fVar('SAInts' pos))
+                         )
+                      forFrom(
+                         fVar('AFrom' pos)
+                         fVar('AFun1' pos)
+                         )
+                     ]
+                     unit
+                     pos)
+                  fForComprehensionLevel(
+                     [forPattern(
+                         fVar('BCsty' pos)
+                         forGeneratorC(fVar('BBCsty' pos) fOpApply('+' ['BCsty' 'SBCsty'] unit) unit)
+                         )
+                      forFlag(fAtom(lazy pos))
+                      forPattern(
+                         fVar('BList' pos)
+                         forGeneratorList(fRecord('[3 4]'))
+                         )
+                      forFrom(
+                         fVar('BFrom' pos)
+                         fVar('BFun1' pos)
+                         )
+                     ]
+                     fOpApply('A+B > 4' pos)
+                     pos)
+                  fForComprehensionLevel(
+                     [forPattern(
+                         fVar('CList' pos)
+                         forGeneratorList(fVar('RCList' pos))
+                         )
+                      forPattern(
+                         fVar('CInts' pos)
+                         forGeneratorInt(fInt(3 pos) fInt(4 pos) unit)
+                         )
+                     ]
+                     unit
+                     pos)
+                 ]
+   FakeLevels2 = [
+                  fForComprehensionLevel(
+                     [forPattern(
+                         fVar('CList1' pos)
+                         forGeneratorList(fBuffer(fVar('RCList1' pos) fInt(1 pos)))
+                         )
+                      forPattern(
+                         fVar('CList2' pos)
+                         forGeneratorList(fBuffer(fVar('RCList2' pos) fInt(3 pos)))
+                         )           ]
+                     unit
+                     pos)
+                 ]
+   FakeLevels3 = [
+                  fForComprehensionLevel(
+                     [forPattern(
+                         fVar('A' pos)
+                         forGeneratorList(fVar('In1' pos))
+                         )
+                     ]
+                     unit
+                     pos)
+                  fForComprehensionLevel(
+                     [forFlag(fAtom(lazy pos))
+                      forPattern(
+                         fVar('B' pos)
+                         forGeneratorList(fBuffer(fVar('In2' pos) fInt(3 pos)))
+                         )
+                     ]
+                     unit
+                     pos)
+                 ]
+   FakeLevels4 = [
+                  fForComprehensionLevel(
+                     [
+                      forRecord(fVar('I' pos) fVar('A' pos) fVar('Rec1' pos) function)
+                      forRecord(fWildcard(pos) fWildcard(pos) fVar('Rec2' pos) unit)
+                     ]
+                     unit
+                     pos)
+                  fForComprehensionLevel(
+                     [
+                      forRecord(fWildcard(pos) fVar('B' pos) fVar('Rec3' pos) unit)
+                      forRecord(fVar('C' pos) fWildcard(pos) fVar('Rec4' pos) unit)
+                     ]
+                     unit
+                     pos)
+                 ]
+   %% returns Coord with its label set to pos --> pos(...same as what was in Coord...)
+   %% if Coord == unit then pos end
+   fun {CoordNoDebug C}
+      case {Label C} of pos then C
+      else {Adjoin C pos}
+      end
+   end
    %% create a new variable named Name
    fun {MakeVar Name}
-      fVar({NewNamedName Name} unit)
+      fVar(Name unit)
    end
    %% create a new variable named by the concatenation of Name and Index
    %% Name : atom
    %% Index : positive int
    fun {MakeVarIndex Name Index}
-      fVar({NewNamedName {VirtualString.toAtom Name#Index}} unit)
+      fVar({VirtualString.toAtom Name#Index} unit)
    end
    %% create a new variable named by the concatenation of Name1, Index1, Name2 and Index2
    %% Name_ : atom
    %% Index_ : positive int
    fun {MakeVarIndexIndex Name1 Index1 Name2 Index2}
-      fVar({NewNamedName {VirtualString.toAtom Name1#Index1#Name2#Index2}} unit)
-   end
-   %% returns Coord with its label set to pos --> pos(...same as what was in Coord...)
-   %% if Coord == unit then pos end
-   fun {CoordNoDebug Coord}
-      case {Label Coord}
-      of pos then Coord
-      else {Adjoin Coord pos}
-      end
+      fVar({VirtualString.toAtom Name1#Index1#Name2#Index2} unit)
    end
    %%==================================================
    %%==================================================
@@ -1006,4 +1083,6 @@ define
          %% keep position of list comprehension
          COORDS)
    end
+in
+   {Browse {Compile fListComprehension(FakeExpr1 FakeLevels1 FakeBody FakeCoords)}}
 end

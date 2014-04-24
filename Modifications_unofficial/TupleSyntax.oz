@@ -94,7 +94,7 @@ fun {CoordinatesOf P}
    [] forExpression(E _) then {CoordinatesOf E}
    [] fBuffer(E _) then {CoordinatesOf E}
    [] forRecord(F _ _ _) then {CoordinatesOf F}
-   [] fRecordComprehension(_ _ _ _ _ C) then C
+   [] fRecordComprehension(_ _ _ _ _ _ C) then C
    end
 end
 
