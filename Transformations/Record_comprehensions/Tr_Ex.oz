@@ -19,7 +19,7 @@ local
                Feat = AriFull.1
                Val = Rec.Feat
             in
-               if {IsRecord Val} andthen true then
+               if {IsRecord Val} andthen {Arity Val} \= nil andthen true then
                   {Level Val '#'(2:Result.2.Feat 1:Result.1.Feat 3:Result.3.Feat)}
                else
                   {Browse body}
@@ -31,7 +31,7 @@ local
             {For2 Rec AriFull.2 AriBool.2 Result}
          else
             {For2 Rec AriFull   AriBool.2 Result}
-         end 
+         end
       end
    end
    %% for1

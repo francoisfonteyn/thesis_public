@@ -148,8 +148,8 @@ define
                        fBoolCase(%% condition
                                  if WithFun then
                                     fAndThen(fApply(fVar('IsRecord' unit) [Value] unit)
-                                             fAndThen(fApply(Fun [Feat Value] unit)
-                                                      fOpApply('\\=' [fApply(fVar('Arity' unit) [Value] unit) fAtom(nil unit)] unit)
+                                             fAndThen(fOpApply('\\=' [fApply(fVar('Arity' unit) [Value] unit) fAtom(nil unit)] unit)
+                                                      fApply(Fun [Feat Value] unit)
                                                       unit)
                                              unit)
                                  else

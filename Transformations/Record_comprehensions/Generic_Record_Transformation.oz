@@ -59,7 +59,8 @@ local
                {{ Feature Given By User Or New One }} = AriFull.1
                {{ Value Given By User Or New One }} = Rec.{{ Feature Given By User Or New One }}
             in
-               if {IsRecord {{ Value Given By User Or New One }}} andthen {{ Decider }} then
+               if {IsRecord {{ Value Given By User Or New One }}} andthen
+                  {Arity {{ Value Given By User Or New One }}} \= nil andthen {{ Decider }} then
                   {Level {{ Value Given By User Or New One }}
                    '#'( {{ ForAll Feature F }}
                         F:Result.F.{{ Feature Given By User Or New One }}
@@ -75,7 +76,7 @@ local
             {For2 Rec AriFull.2 AriBool.2 Result}
          else
             {For2 Rec AriFull   AriBool.2 Result}
-         end 
+         end
       end
    end
 end

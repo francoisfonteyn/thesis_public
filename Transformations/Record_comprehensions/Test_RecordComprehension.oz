@@ -365,9 +365,10 @@ local
                                                 fBoolCase(%% condition
                                                           local
                                                              IsRec = fApply(fVar('IsRecord' unit) [Ranger] unit)
+                                                             IsAri = fOpApply('\\=' [fApply(fVar('Arity' unit) [Ranger] unit) fAtom(nil unit)] unit)
                                                           in
-                                                             if CONDITION == unit then IsRec
-                                                             else fAndThen(IsRec CONDITION unit)
+                                                             if CONDITION == unit then fAndThen(IsRec IsAri unit)
+                                                             else fAndThen(IsRec fAndThen(IsAri CONDITION unit) unit)
                                                              end
                                                           end
                                                           %% true: call Level
