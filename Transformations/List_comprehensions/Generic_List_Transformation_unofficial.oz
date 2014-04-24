@@ -9,15 +9,39 @@ local
    proc {PreLevel ?Result}
       %% return list when one output with no feature
       if {{ ReturnList }} then
-         {Level1 {{ Initiators_For_Next_Level }} '#'(1:Result)}
+         if {{ Bounded_Buffer }} then
+            %% create buffers
+            local
+               Range1At1 = List_1
+               End1At1 = thread {List.drop Range1At1 Buffer} end
+            in
+               %% call next level with buffers
+               {Level1 {{ Initiators_For_Next_Level }} '#'(1:Result)}
+            end
+         else %% no buffers
+            {Level1 {{ Initiators_For_Next_Level }} '#'(1:Result)}
+         end
       else %% return record
          %% create the tuple of outputs
          local
             {{ Next_1 ... Next_N }}
          in
-            Result = {{ '#'(field1:Next1 ... fieldN:NextN) }}
-            %% call level 1 with its initiators and with the tuple
-            {Level1 {{ Initiators_For_Next_Level }} '#'(field1:Next1 ... fieldN:NextN)}
+            Result = {{ '#'(field1:Next1 ... fieldCollect1:@Cell1 ... fieldN:NextN) }}
+            if {{ Bounded_Buffer }} then
+               %% create buffers
+               local
+                  {{ ForAll I with Bounded Buffer }}
+                     RangeIAt1 = List_I
+                     EndIAt1 = thread {List.drop RangeIAt1 Buffer} end
+                  {{ End ForAll }}
+               in
+                  %% call next level with buffers
+                  {Level1 {{ Initiators_For_Next_Level }} '#'(field1:Next1 ... fieldN:NextN)}
+               end
+            else %% no buffers
+               %% call level 1 with its initiators and with the tuple
+               {Level1 {{ Initiators_For_Next_Level }} '#'(field1:Next1 ... fieldN:NextN)}
+            end
          end
       end
    end
@@ -34,7 +58,11 @@ local
             in
                {{ Forall I in Fields_Name }}
                   thread
-                     {WaitNeeded Result.I}
+                     if {{ I is Collector }} then
+                        {WaitNeeded @Cell_I}
+                     else
+                        {WaitNeeded Result.I}
+                     end
                      LazyVar = unit
                   end
                {{ end Forall }}
@@ -43,7 +71,11 @@ local
             end
          else
             %% one output, so just wait for it to be needed
-            {WaitNeeded Result.{{ Fields_Name.1 }}}
+            if {{ I is Collector }} then
+               {WaitNeeded @Cell_1}
+            else
+               {WaitNeeded Result.{{ Fields_Name.1 }}}
+            end
          end
       end %% end of handle laziness
       %% test if no more iterations
@@ -74,7 +106,11 @@ local
                      {{ end Forall }}
                      %% call next iteration of this level
                      {LevelY
-                      {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
+                      if {{ Bounded_Buffer }} then
+                         {{ Next_Iteration_For_The_Ranges_Of_This_Level_With_Buffer }}
+                      else
+                         {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
+                      end
                       {{ Previous_Levels_Arguments }}
                       {{ Previous_List_Ranges }}
                       {{ '#'(field1:Next1 ... fieldN:NextN) }}
@@ -83,7 +119,19 @@ local
                else
                   %% not last level, call next level
                   {LevelZ
-                   {{ Initiators_For_Next_Level }}
+                   %% handle buffers for next level
+                   if {{ Bounded_Buffer }} then
+                      local
+                         {{ ForAll I with Bounded Buffer }}
+                            RangeIAtZ = List_I
+                            EndIAtZ = thread {List.drop RangeIAtZ Buffer} end
+                         {{ End ForAll }}
+                      in
+                         {{ Initiators_For_Next_Level_With_Buffers }}
+                      end
+                   else
+                      {{ Initiators_For_Next_Level }}
+                   end
                    {{ This_Level_Ranges }} % may contain buffers
                    {{ Previous_Levels_Arguments }}
                    {{ List_Arguments }}
@@ -93,7 +141,11 @@ local
             else
                %% this level condition not fulfilled, call next iteration of this level
                {LevelY
-                {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
+                if {{ Bounded_Buffer }} then
+                   {{ Next_Iteration_For_The_Ranges_Of_This_Level_With_Buffer }}
+                else
+                   {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
+                end
                 {{ Previous_Levels_Arguments }}
                 {{ Previous_List_Ranges }}
                 Result
@@ -106,14 +158,22 @@ local
             %% no previous level, end output-s by appending nil
             if {{ Multi_Output }} then
                {{ Forall I in Fields_Name }}
-                  Result.I = nil
+                  if {{ Output I is Collector }} then
+                     {Exchange Cell_I nil _}
+                  else
+                     Result.I = nil
+                  end
                {{ end Forall }}
             else
-               Result.1 = nil
+               if {{ Output 1 is Collector }} then
+                  {Exchange Cell_1 nil _}
+               else
+                  Result.1 = nil
+               end
             end
          else
             %% call previous level X
-            %% same as lines 95 to 100 of previous level X
+            %% same as lines 143 to 152 of previous level X
             {{ Call_Previous_Level_With_Next_Iteration }} 
          end
       end
@@ -121,6 +181,21 @@ local
 in
    %% actually call the cascade of procedures
    {PreLevel}
+end
+
+
+fun {{ Next_Iteration_For_The_Ranges_Of_This_Level_With_Buffer }}
+   case Ranges
+   of nil then nil
+   [] H|T then
+      case H
+      of RangeIAtX#EndIAtX then %% buffer is here
+         (RangeIAtX.2#thread if EndIAtX == nil then EndIAtX
+                             else EndIAtX.2
+                             end)|{... T}
+      else H|{... T}
+      end
+   end
 end
 
 

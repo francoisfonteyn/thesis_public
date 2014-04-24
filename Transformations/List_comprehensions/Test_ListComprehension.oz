@@ -454,7 +454,7 @@ local
       %% returns [fVar('Next1' unit) ... fVar('NextN' unit)]
       %% NextsRecord is bound to the same list but with
       %%    each element put inside a fColon with its feature
-      fun {CreateNextsForLastLevel OFields ?NextsRecord}
+      fun {CreateNextsForLastLevel Fields ?NextsRecord}
          fun {Aux I Fs Acc1 Acc2}
             case Fs
             of nil then

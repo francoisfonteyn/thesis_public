@@ -1,4 +1,4 @@
-%% L1 = L2 = [A for A in 1..3 body {Delay 1000}]
+%% L1 = L2 = [A for A in 1..3 do {Delay 1000}]
 declare L1 L2 in
 %% Big local
 thread L2 =
@@ -27,4 +27,4 @@ thread L2 =
 end
 {Browse 'ListComprehension'}{Browse L1}
 {Browse 'Equivalent'}{Browse L2}
-thread L1 = [A for A in 1..3 body {Delay 1000}] end
+thread L1 = [A for A in 1..3 do {Delay 1000}] end

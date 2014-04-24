@@ -64,8 +64,9 @@ local
                    '#'( {{ ForAll Feature F }}
                         F:Result.F.{{ Feature Given By User Or New One }}
                         {{ end ForAll }}
-                      )
+                      )}
                else
+                  {{ Body }}
                   {{ ForAll Feature F }}
                      Result.F.{{ Feature Given By User Or New One }} = {{ Output Expression F }}
                   {{ end ForAll }}

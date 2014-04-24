@@ -22,6 +22,7 @@ local
                if {IsRecord Val} andthen true then
                   {Level Val '#'(2:Result.2.Feat 1:Result.1.Feat 3:Result.3.Feat)}
                else
+                  {Browse body}
                   Result.2.Feat = Val + 2
                   Result.1.Feat = Val + 1
                   Result.3.Feat = Val + 3
@@ -71,4 +72,4 @@ in
 end
 {Browse 'RecordComprehension'}{Browse R1}
 {Browse 'Equivalent'}{Browse R2}
-R1 = [2:A+2 1:A+1 3:A+3 for A through r(r1(1 2 3) r2(4 5 6)) if {Not {IsRecord A}} orelse {Label A} \= r1 of true]
+R1 = (2:A+2 1:A+1 3:A+3 for A in r(r1(1 2 3) r2(4 5 6)) if {Not {IsRecord A}} orelse {Label A} \= r1 of true do {Browse body})

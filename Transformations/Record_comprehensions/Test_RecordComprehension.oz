@@ -11,6 +11,8 @@ local
    FakeFilter2 = filter
    FakeCondition1 = unit
    FakeCondition2 = condition
+   FakeBody1 = fullBody
+   FakeBody2 = unit
    %% create a new variable named Name
    fun {MakeVar Name}
       fVar(Name unit)
@@ -24,7 +26,7 @@ local
    %%================================================
    %%================================================
    %% the actual exported function called by Unnester
-   fun {Compile fRecordComprehension(EXPR_LIST RANGER RECORD FILTER CONDITION COORDS)}
+   fun {Compile fRecordComprehension(EXPR_LIST RANGER RECORD FILTER CONDITION BODY COORDS)}
       %% used to keep track of all the (level) procedures to declare (see DeclareAll)
       %% used to keep trakc of all the bounds of range to declare e.g. Low..High (see DeclareAll)
       DeclarationsDictionary = {Dictionary.new}
@@ -372,8 +374,14 @@ local
                                                           fApply(Father [Ranger
                                                                          {MakeCallBackRecord Result Feat Fields}]
                                                                  unit)
-                                                          %% false: assign to expression
-                                                          {AssignToExpression Result Feat Fields Expressions}
+                                                          %% false: assign to expression and body
+                                                          local
+                                                             Asgns = {AssignToExpression Result Feat Fields Expressions}
+                                                          in
+                                                             if BODY == unit then Asgns
+                                                             else fAnd(BODY Asgns)
+                                                             end
+                                                          end
                                                           %% position
                                                           unit)
                                                 %% position
@@ -498,5 +506,5 @@ local
          COORDS)
    end %% end of Compile
 in
-   {Browse {Compile fRecordComprehension(FakeExpr1 FakeRanger1 FakeRecord1 FakeFilter1 FakeCondition1 FakeCoords)}}
+   {Browse {Compile fRecordComprehension(FakeExpr1 FakeRanger1 FakeRecord1 FakeFilter1 FakeCondition1 FakeBody1 FakeCoords)}}
 end
