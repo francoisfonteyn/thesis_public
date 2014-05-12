@@ -1,6 +1,6 @@
 [submodule "mozart2"]
 	path = mozart2
-	url = https://github.com/francoisfonteyn/mozart2
+	url = https://github.com/francoisfonteyn/mozart2.git
 [submodule "mozart2_unofficial"]
 	path = mozart2_unofficial
 	url = https://github.com/francoisfonteyn/mozart2_unofficial.git
