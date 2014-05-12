@@ -1,4 +1,4 @@
-%% L1 = L2 = [FA#A if A>10 1:B A#B for lazy FA:A in 10#20 for _:B in R]
+%% L1 = L2 = [FA#A if A>10 1:B A#B suchthat lazy FA:A in 10#20 suchthat _:B in R]
 declare L1 L2 R Fun in
 %% Big local
 thread L2 =
@@ -82,7 +82,7 @@ end
 R = r(1:f(a:f1) 2:f2 3:f3 rr1:rr(c:f4 crrr1:rrr(50:f5 dd:f6) cx:f7) rr2:rr(8:f8))
 {Browse 'ListComprehension'}{Browse L1}
 {Browse 'Equivalent'}{Browse L2}
-thread L1 = [FA#A if A>10 1:B A#B for lazy FA:A in 10#20 for _:B in R] end
+thread L1 = [FA#A if A>10 1:B A#B suchthat lazy FA:A in 10#20 suchthat _:B in R] end
 
 %% because lazy
 {Value.makeNeeded L1.3}

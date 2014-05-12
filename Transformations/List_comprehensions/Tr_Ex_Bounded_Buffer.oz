@@ -1,4 +1,4 @@
-%% L1 = L2 = [A B A+B for A in In1:2 for lazy B in In2:3]
+%% L1 = L2 = [A B A+B suchthat A in In1:2 suchthat lazy B in In2:3]
 declare In1 In2 L1 L2 MakeNeeded Producer in
 proc {MakeNeeded L N}
    if N > 0 andthen L \= nil then {MakeNeeded L.2 N-1} end
@@ -13,12 +13,12 @@ fun lazy {Producer I N}
    end
 end
 %% Big local
-thread L2 = 
+thread L2 =
    local
       %% pre level
       proc {PreLevel ?Result}
          local
-            Next1 Next2 Next3 
+            Next1 Next2 Next3
          in
             Result = '#'(1:Next1 2:Next2 3:Next3)
             local
@@ -94,7 +94,7 @@ end
 {Browse 'Equivalent'}{Browse L2}
 thread {Producer 0 10 In1} end
 thread {Producer 0 5 In2} end
-thread L1 = [A B A+B for A in In1:2 for lazy B in In2:3] end
+thread L1 = [A B A+B suchthat A in In1:2 suchthat lazy B in In2:3] end
 
 thread {MakeNeeded L1.1 14} end
 thread {MakeNeeded L2.2 14} end

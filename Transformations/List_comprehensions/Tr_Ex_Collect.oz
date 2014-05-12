@@ -1,4 +1,4 @@
-%% L1 = L2 = [1:collect:C2 2:collect:C2 for lazy A in 1..3 do {C1 A}{C1 A+1}{C2 yes}{C2 no}]
+%% L1 = L2 = [1:collect:C2 2:collect:C2 suchthat lazy A in 1..3 do {C1 A}{C1 A+1}{C2 yes}{C2 no}]
 declare L1 L2 in
 %% Big local
 thread L2 =
@@ -36,7 +36,7 @@ thread L2 =
 end
 {Browse 'ListComprehension'}{Browse L1}
 {Browse 'Equivalent'}{Browse L2}
-thread L1 =  [1:collect:C1 2:collect:C2 for lazy A in 1..3 do {C1 A}{C1 A+1}{C2 yes}{C2 no}] end
+thread L1 =  [1:collect:C1 2:collect:C2 suchthat lazy A in 1..3 do {C1 A}{C1 A+1}{C2 yes}{C2 no}] end
 
 {Value.makeNeeded L1.2.2.2.2.2.2.2}
 {Value.makeNeeded L2.1.2.2.2.2.2.2}

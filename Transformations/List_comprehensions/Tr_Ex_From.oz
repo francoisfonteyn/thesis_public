@@ -1,4 +1,4 @@
-%% L1 = L2 = [A+B#AA+BB for A from Fun1 AA in 10..12 for B from Fun2 BB in 10..12]
+%% L1 = L2 = [A+B#AA+BB suchthat A from Fun1 AA in 10..12 suchthat B from Fun2 BB in 10..12]
 declare L1 L2 Fun1 Fun2 in
 %% functions
 fun {Fun1} 1 end
@@ -37,5 +37,5 @@ thread L2 =
 end
 {Browse 'ListComprehension'}{Browse L1}
 {Browse 'Equivalent'}{Browse L2}
-thread L1 = [A+B#AA+BB for A from Fun1 AA in 10..12 for B from Fun2 BB in 10..12] end
+thread L1 = [A+B#AA+BB suchthat A from Fun1 AA in 10..12 suchthat B from Fun2 BB in 10..12] end
 

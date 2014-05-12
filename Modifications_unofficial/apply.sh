@@ -69,7 +69,9 @@ make_changes() {
     cp TupleSyntax.oz "${to}lib/compiler/"
     cp Unnester.oz "${to}lib/compiler/"
     cp Macro.oz "${to}lib/compiler/"
+    cp Lexer.oz "${to}lib/compiler/"
     cp CMakeLists.txt "${to}lib/"
+    cp oz.el "${to}opi/emacs/"
     echo -e "${GREEN}Done.${NORMAL}"
 }
 

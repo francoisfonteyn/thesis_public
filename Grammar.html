@@ -186,8 +186,6 @@ a {
     <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
     <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> ]</div>
     <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> do <a href="#phrase">phrase</a> ]</div>
-    <div class="altdefinition">( <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <span class="regex">opt(</span><a href="#lvl0">lvl0</a> :<span class="regex">)</span> <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a> <span class="regex">opt(</span>of <a href="#lvl0">lvl0</a><span class="regex">)</span> <span class="regex">opt(</span>if <a href="#lvl0">lvl0</a><span class="regex">)</span> <span class="regex">opt(</span>do <a href="#phrase">phrase</a><span class="regex">)</span> )</div>
-    <div class="altdefinition">( <span class="regex">plus(</span><a href="#subtree">subtree</a><span class="regex">)</span> for <span class="regex">opt(</span><a href="#lvl0">lvl0</a> :<span class="regex">)</span> <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a> if <a href="#lvl0">lvl0</a> of <a href="#lvl0">lvl0</a> <span class="regex">opt(</span>do <a href="#phrase">phrase</a><span class="regex">)</span> )</div>
     <div class="altdefinition">skip</div>
     <div class="altdefinition">fail</div>
     <div class="altdefinition">self</div>
@@ -205,10 +203,10 @@ a {
 
     <br>
     <div class="level" id="forComprehension">forComprehension</div>
-    <div class="definition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span></div>
-    <div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a></div>
-    <div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a></div>
-    <div class="altdefinition">for <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a> <a href="#forComprehension">forComprehension</a></div>
+    <div class="definition">suchthat <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span></div>
+    <div class="altdefinition">suchthat <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a></div>
+    <div class="altdefinition">suchthat <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a></div>
+    <div class="altdefinition">suchthat <span class="regex">plus(</span><a href="#forListDecl">forListDecl</a><span class="regex">)</span> if <a href="#lvl0">lvl0</a> <a href="#forComprehension">forComprehension</a></div>
 
     <br>
     <div class="level" id="forListDecl">forListDecl</div>

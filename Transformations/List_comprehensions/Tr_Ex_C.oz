@@ -1,4 +1,4 @@
-%% L1 = L2 = [A+B for lazy A in 1 ; A<10 ; A+1 if A<4 for lazy B in 2*A ; B<20 ; B+2 if A+B>4]
+%% L1 = L2 = [A+B suchthat lazy A in 1 ; A<10 ; A+1 if A<4 suchthat lazy B in 2*A ; B<20 ; B+2 if A+B>4]
 declare L1 L2 in
 %% Big local
 thread L2 =
@@ -43,7 +43,7 @@ thread L2 =
 end
 {Browse 'ListComprehension'}{Browse L1}
 {Browse 'Equivalent'}{Browse L2}
-thread L1 = [A+B for lazy A in 1 ; A<10 ; A+1 if A<4 for lazy B in 2*A ; B<20 ; B+2 if A+B>4] end
+thread L1 = [A+B suchthat lazy A in 1 ; A<10 ; A+1 if A<4 suchthat lazy B in 2*A ; B<20 ; B+2 if A+B>4] end
 
 %% because lazy
 {Value.makeNeeded L1.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2}

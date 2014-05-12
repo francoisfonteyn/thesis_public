@@ -1,4 +1,4 @@
-%% L1 = L2 = [A if A>1 1:B A+B for A in [1 2 3] for B in [4 5 6 7 8 9 10]]
+%% L1 = L2 = [A if A>1 1:B A+B suchthat A in [1 2 3] suchthat B in [4 5 6 7 8 9 10]]
 declare L1 L2 in
 %% Big local
 thread L2 =
@@ -51,4 +51,4 @@ thread L2 =
 end
 {Browse 'ListComprehension'}{Browse L1}
 {Browse 'Equivalent'}{Browse L2}
-thread L1 = [A if A>1 1:B A+B for A in [1 2 3] for B in [4 5 6 7 8 9 10]] end
+thread L1 = [A if A>1 1:B A+B suchthat A in [1 2 3] suchthat B in [4 5 6 7 8 9 10]] end
