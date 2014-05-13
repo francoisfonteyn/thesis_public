@@ -102,8 +102,3 @@ thread {MakeNeeded L2.2 14} end
 thread {MakeNeeded L1.3 67} end
 thread {MakeNeeded L2.1 67} end
 
-%% change all RangeXatY into RangeXatY#EndXatY --> ok
-%% fLocal when calling next level (except last level), see initiators --> ok
-%% first line of any level --> ok
-%% thread .2 when calling itself --> ok
-%% threads are there because otherwise one can not take profit of the buffers because we have to wait for the next lement of End to be there to go on with what the rest - that might there a lot !
