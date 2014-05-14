@@ -28,5 +28,7 @@ The mozart2 sources.
 The updated grammar of Mozart2 in HTML.
 ##### Thesis.pdf:      
 The report that contains an introduction, the implementation as well as examples and explanations.
+##### Tests
+All the tests.
 ##### Tutorial.pdf
 A tutorial to get started with comprehensions.
