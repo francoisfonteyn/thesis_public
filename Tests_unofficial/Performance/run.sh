@@ -160,8 +160,8 @@ for x in *; do
     fi
 done
 
-if [ -e "${dir}${TESTER}f" ]; then
-    rm "${dir}${TESTER}f"
+if [ -e "${TESTER}f" ]; then
+    rm "${TESTER}f"
 fi
 
 echo -ne "${NORMAL}"
