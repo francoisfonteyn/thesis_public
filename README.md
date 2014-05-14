@@ -26,8 +26,6 @@ The functional transformations used for list comprehensions.
 The mozart2 sources.
 ##### Grammar.html: 
 The updated grammar of Mozart2 in HTML.
-##### Mozart2.zip:
-The application Mozart2 for Mavericks.
 ##### Thesis.pdf:      
 The report that contains an introduction, the implementation as well as examples and explanations.
 ##### Tutorial.pdf
