@@ -62,19 +62,13 @@ usage() {
 # make_changes
 make_changes() {
     echo -ne "${RED}${BOLD}"
-    cp CheckTupleSyntax.oz "${to}lib/compiler/"
-    cp ListComprehension.oz "${to}lib/compiler/"
-    cp RecordComprehension.oz "${to}lib/compiler/"
-    cp Parser.oz "${to}lib/compiler/"
-    cp TupleSyntax.oz "${to}lib/compiler/"
-    cp Unnester.oz "${to}lib/compiler/"
-    cp Macro.oz "${to}lib/compiler/"
-    cp Lexer.oz "${to}lib/compiler/"
-    cp CMakeLists.txt "${to}CMakeLists.txt"
-    cp CMakeLists_lib.txt "${to}lib/CMakeLists.txt"
-    cp CMakeLists_platform-test.txt "${to}platform-test/CMakeLists.txt"
-    cp -R list-comprehensions "${to}platform-test/"
-    cp oz.el "${to}opi/emacs/"
+    cp CMakeLists_boosthost_emulator.txt "${to}boosthost/emulator/CMakeLists.txt"
+    cp CMakeLists_vm_generator.txt "${to}vm/generator/CMakeLists.txt"
+    cp CMakeLists_vm_vm.txt "${to}vm/vm/CMakeLists.txt"
+    cp CMakeLists_vm_vm_test.txt "${to}vm/vm/test/CMakeLists.txt"
+    cp CMakeLists_vm_boostenv_main.txt "${to}vm/boostenv/main/CMakeLists.txt"
+    cp CMakeLists_vm_generator_main.txt "${to}vm/generator/main/CMakeLists.txt"
+    cp CMakeLists_vm_vm_main.txt "${to}vm/vm/main/CMakeLists.txt"
     echo -e "${GREEN}Done.${NORMAL}"
 }
 
@@ -111,3 +105,4 @@ fi
 usage
 
 echo -ne "${NORMAL}"
+exit 0

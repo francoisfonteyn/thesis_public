@@ -69,7 +69,10 @@ make_changes() {
     cp Unnester.oz "${to}lib/compiler/"
     cp Macro.oz "${to}lib/compiler/"
     cp Lexer.oz "${to}lib/compiler/"
-    cp CMakeLists.txt "${to}lib/"
+    cp CMakeLists.txt "${to}CMakeLists.txt"
+    cp CMakeLists_lib.txt "${to}lib/CMakeLists.txt"
+    cp CMakeLists_platform-test.txt "${to}platform-test/CMakeLists.txt"
+    cp -R list-comprehensions "${to}platform-test/"
     cp oz.el "${to}opi/emacs/"
     echo -e "${GREEN}Done.${NORMAL}"
 }
@@ -91,6 +94,10 @@ do
         -p)
             i=`expr $i + 1`
             to="${!i}"
+            last="${to:(-1)}"
+            if [ ! $last == "/" ]; then
+                to="${to}/"
+            fi
             ;;
     esac
 done
