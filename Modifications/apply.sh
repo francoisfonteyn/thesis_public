@@ -69,6 +69,7 @@ make_changes() {
     cp Unnester.oz "${to}lib/compiler/"
     cp Macro.oz "${to}lib/compiler/"
     cp Lexer.oz "${to}lib/compiler/"
+    cp CMakeLists.txt "${to}CMakeLists.txt"
     cp CMakeLists_lib.txt "${to}lib/CMakeLists.txt"
     cp CMakeLists_platform-test.txt "${to}platform-test/CMakeLists.txt"
     cp -R list-comprehensions "${to}platform-test/"
