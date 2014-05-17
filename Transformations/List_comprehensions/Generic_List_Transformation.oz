@@ -1,5 +1,5 @@
 %% Big local
-local  
+local
    %% Collectors and cells
    {{ ForAll I in Collectors }}
       Cell_I = {NewCell _}
@@ -59,29 +59,37 @@ local
                {{ FR_Range }} = {{ FR_Record }}.{{ FR_Feature }}
             {{ end Forall }}
          in
-            %% test condition given by user
-            if {{ This_Level_Condition }} then
-               if {{ Last_Level }} then
-                  %% last level, add elements
-                  %% add elements for each output
-                  local
-                     {{ Next_1 ... Next_N }}
-                  in
-                     {{ Forall I in Fields_Name }}
-                        %% append to result iff optional condition given by user for output I is fulfilled
-                        %% no condition given is equivalent to true
-                        Result.I = if {{ Condition.I }} then Expression.I|Next_I else Next_I end
-                     {{ end Forall }}
-                     %% call next iteration of this level
-                     {LevelY
-                      {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
-                      {{ Previous_Levels_Arguments }}
-                      {{ Previous_List_Ranges }}
-                      {{ '#'(field1:Next1 ... fieldN:NextN) }}
-                     }
+            if {{ Last_Level }} then
+               local
+                  Next
+               in
+                  if {{ This_Level_Condition }} then
+                     %% last level, level condition true
+                     local
+                        {{ Next_1 ... Next_N }}
+                     in
+                        if {{ Is_Body }} then {{ Body }} end
+                        {{ Forall I in Fields_Name }}
+                           %% append to result iff optional condition given by user for output I is fulfilled
+                           %% no condition given is equivalent to true
+                           Result.I = if {{ Condition.I }} then Expression.I|Next_I else Next_I end
+                        {{ end Forall }}
+                        Next = {{ '#'(field1:Next1 ... fieldN:NextN) }}
+                     end
+                  else
+                     %% last level, level condition false
+                     Next = Result
                   end
-               else
-                  %% not last level, call next level
+                  {LevelY
+                   {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
+                   {{ Previous_Levels_Arguments }}
+                   {{ Previous_List_Ranges }}
+                   Next}
+               end
+            else
+               %% not last level
+               if {{ This_Level_Condition }} then
+                  %% not last level, level condition fulfilled, call next level
                   {LevelZ
                    {{ Initiators_For_Next_Level }}
                    {{ This_Level_Ranges }} % may contain buffers
@@ -89,15 +97,14 @@ local
                    {{ List_Arguments }}
                    {{ Previous_List_Ranges }}
                    Result}
+               else
+                  %% not last level, level condition not fulfilled, call next iteration
+                  {LevelY
+                   {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
+                   {{ Previous_Levels_Arguments }}
+                   {{ Previous_List_Ranges }}
+                   Result}
                end
-            else
-               %% this level condition not fulfilled, call next iteration of this level
-               {LevelY
-                {{ Next_Iteration_For_The_Ranges_Of_This_Level }}
-                {{ Previous_Levels_Arguments }}
-                {{ Previous_List_Ranges }}
-                Result
-               }
             end
          end
       else
@@ -114,7 +121,7 @@ local
          else
             %% call previous level X
             %% same as lines 95 to 100 of previous level X
-            {{ Call_Previous_Level_With_Next_Iteration }} 
+            {{ Call_Previous_Level_With_Next_Iteration }}
          end
       end
    end

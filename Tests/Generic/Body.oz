@@ -31,7 +31,7 @@ define
                 #[1]
 
                 [@C suchthat _:A in r(r(r(1) r(2))) do C:=A]
-                #[1 2]
+                #[r(r(1) r(2))]
 
                 [@C suchthat A in 1..2 suchthat B in 1..2 do C:=A+B]
                 #[2 3 3 4]

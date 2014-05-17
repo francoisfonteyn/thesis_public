@@ -33,12 +33,17 @@ thread L2 =
                B = Range1At2.1
             in
                local
-                  Next1 Next2 Next3
+                  Next
                in
-                  Result.2 = if A>1 then A|Next1 else Next1 end
-                  Result.1 = B|Next2
-                  Result.3 = A+B|Next3
-                  {Level2 Range1At2.2 A Range1At1 '#'(2:Next1 1:Next2 3:Next3)}
+                  local
+                     Next1 Next2 Next3
+                  in
+                     Result.2 = if A>1 then A|Next1 else Next1 end
+                     Result.1 = B|Next2
+                     Result.3 = A+B|Next3
+                     Next = '#'(2:Next1 1:Next2 3:Next3)
+                  end
+                  {Level2 Range1At2.2 A Range1At1 Next}
                end
             end
          else

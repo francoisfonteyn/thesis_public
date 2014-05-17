@@ -22,10 +22,15 @@ thread L2 =
       proc {Level2 BB B AA A ?Result}
          if BB =< 12 then
             local
-               Next1
+               Next
             in
-               Result.1 = A+B#AA+BB|Next1
-               {Level2 BB+1 {Fun2} AA A '#'(1:Next1)}
+               local
+                  Next1
+               in
+                  Result.1 = A+B#AA+BB|Next1
+                  Next = '#'(1:Next1)
+               end
+               {Level2 BB+1 {Fun2} AA A Next}
             end
          else
             {Level1 AA+1 {Fun1} Result}

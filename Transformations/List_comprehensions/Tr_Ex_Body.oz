@@ -13,9 +13,14 @@ thread L2 =
             local
                Next
             in
-               {Delay 1000}
-               Result.1 = A|Next
-               {Level1 A+1 '#'(1:Next)}
+               local
+                  Next1
+               in
+                  {Delay 1000}
+                  Result.1 = A|Next1
+                  Next = '#'(1:Next1)
+               end
+               {Level1 A+1 Next}
             end
          else
             Result.1 = nil

@@ -1,3 +1,5 @@
+%% UNOFFICIAL
+
 %% L1 = L2 = [A B A+B suchthat A in In1:2 suchthat lazy B in In2:3]
 declare In1 In2 L1 L2 MakeNeeded Producer in
 proc {MakeNeeded L N}
@@ -62,17 +64,22 @@ thread L2 =
                B = Range1At2.1
             in
                local
-                  Next1 Next2 Next3
+                  Next
                in
-                  Result.1 = A|Next1
-                  Result.2 = B|Next2
-                  Result.3 = A+B|Next3
+                  local
+                     Next1 Next2 Next3
+                  in
+                     Result.1 = A|Next1
+                     Result.2 = B|Next2
+                     Result.3 = A+B|Next3
+                     Next = '#'(1:Next1 2:Next2 3:Next3)
+                  end
                   {Level2 Range1At2.2#thread
                                          if End1At2 == nil then End1At2
                                          else End1At2.2
                                          end
                                       end
-                   A Range1At1#End1At1 '#'(1:Next1 2:Next2 3:Next3)}
+                   A Range1At1#End1At1 Next}
                end
             end
          else

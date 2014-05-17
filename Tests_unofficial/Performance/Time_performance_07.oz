@@ -68,16 +68,21 @@ define
             local
                _#C#NewStacks = {FindNext Stacks}
             in
-               if C == 3 then
-                  local
-                     Next1 Next2
-                  in
-                     Result.1 = A+B|Next1
-                     Result.a = A|Next2
-                     {Level3 NewStacks B A '#'(1:Next1 a:Next2)}
+               local
+                  Next
+               in
+                  if C == 3 then
+                     local
+                        Next1 Next2
+                     in
+                        Result.1 = A+B|Next1
+                        Result.a = A|Next2
+                        Next = '#'(1:Next1 a:Next2)
+                     end
+                  else
+                     Next = Result
                   end
-               else
-                  {Level3 NewStacks B A Result}
+                  {Level3 NewStacks B A Next}
                end
             end
          else

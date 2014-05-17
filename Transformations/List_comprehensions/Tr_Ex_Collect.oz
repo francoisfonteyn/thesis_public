@@ -1,3 +1,5 @@
+%% UNOFFICIAL
+
 %% L1 = L2 = [1:collect:C2 2:collect:C2 suchthat lazy A in 1..3 do {C1 A}{C1 A+1}{C2 yes}{C2 no}]
 declare L1 L2 in
 %% Big local
@@ -23,8 +25,13 @@ thread L2 =
             {Wait LazyVar}
          end
          if A =< 3 then
-            {C1 A}{C1 A+1}{C2 yes}{C2 no}
-            {Level1 A+1 '#'()}
+            local
+               Next
+            in
+               {C1 A}{C1 A+1}{C2 yes}{C2 no}
+               Next = '#'()
+               {Level1 A+1 Next}
+            end
          else
             {Exchange Cell1 nil _}
             {Exchange Cell2 nil _}

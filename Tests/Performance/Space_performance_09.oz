@@ -20,12 +20,13 @@ define
       end
       %% level 1
       proc {Level1 A ?Result}
-         if A =< Lim then
+         if A =< Lim then Next in
             C1 := A
-            local Next in
-               Result.1 = @C1|Next
-               {Level1 A+1 '#'(1:Next)}
+            local Next1 in
+               Result.1 = @C1|Next1
+               Next = '#'(1:Next1)
             end
+            {Level1 A+1 Next}
          else
             Result.1 = nil
          end

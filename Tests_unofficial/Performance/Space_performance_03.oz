@@ -31,11 +31,16 @@ define
       proc {Level2 B A ?Result}
          if B =< HB then
             local
-               Next1 Next2
+               Next
             in
-               Result.a = A|Next1
-               Result.b = B|Next2
-               {Level2 B+1 A '#'(a:Next1 b:Next2)}
+               local
+                  Next1 Next2
+               in
+                  Result.a = A|Next1
+                  Result.b = B|Next2
+                  Next = '#'(a:Next1 b:Next2)
+               end
+               {Level2 B+1 A Next}
             end
          else
             {Level1 A+1 Result}

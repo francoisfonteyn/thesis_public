@@ -31,16 +31,21 @@ thread L2 =
             {Wait LazyVar}
          end
          if B =< 8 then
-            if A+B > 4 then
-               local
-                  Next1 Next2
-               in
-                  Result.1 = A+B|Next1
-                  Result.a = if A > 0 then B-A|Next2 else Next2 end
-                  {Level2 B+2 A '#'(1:Next1 a:Next2)}
+            local
+               Next
+            in
+               if A+B > 4 then
+                  local
+                     Next1 Next2
+                  in
+                     Result.1 = A+B|Next1
+                     Result.a = if A > 0 then B-A|Next2 else Next2 end
+                     Next = '#'(1:Next1 a:Next2)
+                  end
+               else
+                  Next = Result
                end
-            else
-               {Level2 B+2 A Result}
+               {Level2 B+2 A Next}
             end
          else
             {Level1 A+1 Result}

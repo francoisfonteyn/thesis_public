@@ -63,6 +63,7 @@ usage() {
 make_changes() {
     echo -ne "${RED}${BOLD}"
     cp CheckTupleSyntax.oz "${to}lib/compiler/"
+    cp RunTime.oz "${to}lib/compiler/"
     cp ListComprehension.oz "${to}lib/compiler/"
     cp RecordComprehension.oz "${to}lib/compiler/"
     cp Parser.oz "${to}lib/compiler/"

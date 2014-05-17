@@ -28,10 +28,15 @@ define
                A = Range.1
             in
                local
-                  Next1
+                  Next
                in
-                  Result.1 = A|Next1
-                  {Level1 Range.2 '#'(1:Next1)}
+                  local
+                     Next1
+                  in
+                     Result.1 = A|Next1
+                     Next = '#'(1:Next1)
+                  end
+                  {Level1 Range.2 Next}
                end
             end
          else

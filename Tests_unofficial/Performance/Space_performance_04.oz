@@ -22,15 +22,20 @@ define
       end
       proc {Level1 B A ?Result}
          if B =< H then
-            if B > 0 then
-               local
-                  Next1
-               in
-                  Result.1 = A|Next1
-                  {Level1 B+1 {Fun} '#'(1:Next1)}
+            local
+               Next
+            in
+               if B > 0 then
+                  local
+                     Next1
+                  in
+                     Result.1 = A|Next1
+                     Next = '#'(1:Next1)
+                  end
+               else
+                  Next = Result
                end
-            else
-               {Level1 B+1 {Fun} Result}
+               {Level1 B+1 {Fun} Next}
             end
          else
             Result.1 = nil

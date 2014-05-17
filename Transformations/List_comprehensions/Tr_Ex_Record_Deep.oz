@@ -1,18 +1,10 @@
-%%
-%% Author:
-%%     Francois Fonteyn, 2014
-%%
+%% UNOFFICIAL
 
-functor
-import
-   Application
-   OS
-   Tester at 'Tester.ozf'
-define
+%% L1 = L2 = [FA#A if A>10 1:B A#B suchthat lazy FA:A in 10#20 suchthat _:B in R]
+declare L1 L2 R Fun in
+%% Big local
+thread L2 =
    local
-      Browse = Tester.browse
-      Pid = {OS.getPID}
-      %% Equivalent
       proc {FindNext stacks(FeatStack ValueStack) ?Result}
          local
             Feat = FeatStack.1
@@ -42,12 +34,20 @@ define
       end
       %% level 1
       proc {Level1 Stacks1At1 ?Result}
+         local
+            LazyVar
+         in
+            thread {WaitNeeded Result.2} LazyVar = unit end
+            thread {WaitNeeded Result.1} LazyVar = unit end
+            thread {WaitNeeded Result.3} LazyVar = unit end
+            {Wait LazyVar}
+         end
          if Stacks1At1.1 \= nil then
             local
                FA#A#NewStacks1At1 = {FindNext Stacks1At1}
             in
                local
-                  Record1At2 = Rec
+                  Record1At2 = R
                in
                   {Level2 stacks({Arity Record1At2} {Record.toList Record1At2}) FA A NewStacks1At1 Result}
                end
@@ -82,57 +82,19 @@ define
             {Level1 Stacks1At1 Result}
          end
       end
-      Lim = 80000
-      Rec = {Record.make label [A suchthat A in 1..Lim]}
-      for I in 1..Lim do
-         Rec.I = I
-      end
-      fun {Measure LC}
-         local M1 M2 L in
-            if LC then
-               %% LC
-               M1 = {Tester.memory Pid} div 1000000
-               L = [FA#A if A>10 1:B A#B suchthat FA:A in 10#20 suchthat _:B in Rec]
-               M2 = {Tester.memory Pid} div 1000000
-               {Browse {VirtualString.toAtom 'List comprehension added '#M2-M1#' extra MB'}}
-            else
-               %% Eq
-               M1 = {Tester.memory Pid} div 1000000
-               L = {PreLevel}
-               M2 = {Tester.memory Pid} div 1000000
-               {Browse {VirtualString.toAtom 'Equivalent         added '#M2-M1#' extra MB'}}
-            end
-            M2-M1
-         end
-      end
-      proc {Apply}
-         if @EQnocc == 10 then
-            LCnocc := @LCnocc + 1
-            LCtime := @LCtime + {Measure true}
-         elseif @LCnocc == 10 then
-            EQnocc := @EQnocc + 1
-            EQtime := @EQtime + {Measure false}
-         else
-            if {OS.rand} mod 2 == 0 then
-               LCnocc := @LCnocc + 1
-               LCtime := @LCtime + {Measure true}
-            else
-               EQnocc := @EQnocc + 1
-               EQtime := @EQtime + {Measure false}
-            end
-         end
-      end
-      LCtime = {NewCell 0}
-      LCnocc = {NewCell 0}
-      EQtime = {NewCell 0}
-      EQnocc = {NewCell 0}
    in
-      {Browse 'Each technique will be tried 10 times in a random order'}
-      for _ in 1..20 do {Apply} end
-      {Browse {VirtualString.toAtom 'List comprehensions added '#@LCtime#' extra MB in total'}}
-      {Browse {VirtualString.toAtom 'Equivalents         added '#@EQtime#' extra MB in total'}}
-      {Browse {VirtualString.toAtom 'The total memory taken at the end is '
-               #{Tester.memory Pid} div 1000000#' MB'}}
-      {Application.exit 0}
+      {PreLevel}
    end
 end
+R = r(1:f(a:f1) 2:f2 3:f3 rr1:rr(c:f4 crrr1:rrr(50:f5 dd:f6) cx:f7) rr2:rr(8:f8))
+{Browse 'ListComprehension'}{Browse L1}
+{Browse 'Equivalent'}{Browse L2}
+thread L1 = [FA#A if A>10 1:B A#B suchthat lazy FA:A in 10#20 suchthat _:B in R] end
+
+%% because lazy
+{Value.makeNeeded L1.3}
+{Value.makeNeeded L2.3}
+
+%% end streams
+{Value.makeNeeded L1.2.2.2.2.2.2.2.2.2}
+{Value.makeNeeded L2.2.2.2.2.2.2.2.2.2}

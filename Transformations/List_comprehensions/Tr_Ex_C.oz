@@ -23,15 +23,20 @@ thread L2 =
       proc {Level2 B A ?Result}
          {WaitNeeded Result.1}
          if B<20 then
-            if A+B > 4 then
-               local
-                  Next1
-               in
-                  Result.1 = A+B|Next1
-                  {Level2 B+2 A '#'(1:Next1)}
+            local
+               Next
+            in
+               if A+B > 4 then
+                  local
+                     Next1
+                  in
+                     Result.1 = A+B|Next1
+                     Next = '#'(1:Next1)
+                  end
+               else
+                  Next = Result
                end
-            else
-               {Level2 B+2 A Result}
+               {Level2 B+2 A Next}
             end
          else
             {Level1 A+1 Result}

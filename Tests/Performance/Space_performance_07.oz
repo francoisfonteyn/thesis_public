@@ -12,21 +12,6 @@ define
    local
       Browse = Tester.browse
       Pid = {OS.getPID}
-      %% Equivalent
-      proc {FindNext stacks(FeatStack ValueStack) ?Result}
-         local
-            Feat = FeatStack.1
-            Value = ValueStack.1
-            PoppedFeatStack = FeatStack.2
-            PoppedValueStack = ValueStack.2
-         in
-            if {IsRecord Value} andthen {Arity Value} \= nil then
-               {FindNext stacks({Append {Arity Value} PoppedFeatStack} {Append {Record.toList Value} PoppedValueStack}) Result}
-            else
-               Result = Feat#Value#stacks(PoppedFeatStack PoppedValueStack)
-            end
-         end
-      end
       proc {PreLevel ?Result}
          local
             Next1 Next2
@@ -55,7 +40,7 @@ define
                local
                   Rec = 1#2#3#4#5#6#7#8#9#10
                in
-                  {Level3 stacks({Arity Rec} {Record.toList Rec}) B A Result}
+                  {Level3 record({Arity Rec} Rec) B A Result}
                end
             else
                {Level2 B+2 A Result}
@@ -65,21 +50,26 @@ define
          end
       end
       %% level 3
-      proc {Level3 Stacks B A ?Result}
-         if Stacks.1 \= nil then
+      proc {Level3 record(Arity1At3 Record1At3) B A ?Result}
+         if Arity1At3 \= nil then
             local
-               _#C#NewStacks = {FindNext Stacks}
+               C = Record1At3.(Arity1At3.1)
             in
-               if C == 3 then
-                  local
-                     Next1 Next2
-                  in
-                     Result.1 = A+B|Next1
-                     Result.a = A|Next2
-                     {Level3 NewStacks B A '#'(1:Next1 a:Next2)}
+               local
+                  Next
+               in
+                  if C == 3 then
+                     local
+                        Next1 Next2
+                     in
+                        Result.1 = A+B|Next1
+                        Result.a = A|Next2
+                        Next = '#'(1:Next1 a:Next2)
+                     end
+                  else
+                     Next = Result
                   end
-               else
-                  {Level3 NewStacks B A Result}
+                  {Level3 record(Arity1At3.2 Record1At3) B A Next}
                end
             end
          else
