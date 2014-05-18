@@ -59,22 +59,54 @@ usage() {
     exit 0
 }
 
+cp_diff() {
+    lim=36
+    printf "${NORMAL}${CYAN}%-${lim}s${RED}" "${1}..."
+    trgt="$2"
+    last=$(echo ${trgt:(-1)})
+    if [ $last == "/" ]; then trgt="${trgt}${1}"; fi
+    if [ -e "$trgt" ]; then
+        d=$(diff "$1" "$trgt")
+        if [ ${#d} == 0 ]; then
+            echo -e "${CYAN} Nothing to do.${RED}"
+        else
+            cp "$1" "$trgt"
+            echo -e "${CYAN} Done.${RED}"
+        fi
+    else
+        cp "$1" "$trgt"
+        echo -e "${CYAN} Done.${RED}"
+    fi
+}
+rm_diff() {
+    if [ -e "${1}${2}" ]; then
+        printf "${NORMAL}${CYAN}%-${lim}s${RED}" "Removing ${2}..."
+        rm "${1}${2}"
+        echo -e "${CYAN} Done.${RED}"
+    fi
+}
+
 # make_changes
 make_changes() {
-    echo -ne "${RED}${BOLD}"
-    cp CheckTupleSyntax.oz "${to}lib/compiler/"
-    cp RunTime.oz "${to}lib/compiler/"
-    cp ListComprehension.oz "${to}lib/compiler/"
-    cp Parser.oz "${to}lib/compiler/"
-    cp TupleSyntax.oz "${to}lib/compiler/"
-    cp Unnester.oz "${to}lib/compiler/"
-    cp Macro.oz "${to}lib/compiler/"
-    cp Lexer.oz "${to}lib/compiler/"
-    cp CMakeLists_lib.txt "${to}lib/CMakeLists.txt"
-    cp CMakeLists_platform-test.txt "${to}platform-test/CMakeLists.txt"
-    cp -R list-comprehensions "${to}platform-test/"
-    cp oz.el "${to}opi/emacs/"
-    echo -e "${GREEN}Done.${NORMAL}"
+    cp_diff CheckTupleSyntax.oz "${to}lib/compiler/"
+    cp_diff CMakeLists_lib.txt "${to}lib/CMakeLists.txt"
+    cp_diff CMakeLists_platform-test.txt "${to}platform-test/CMakeLists.txt"
+    cp_diff Lexer.oz "${to}lib/compiler/"
+    cp_diff ListComprehension.oz "${to}lib/compiler/"
+    cp_diff Macro.oz "${to}lib/compiler/"
+    cp_diff Parser.oz "${to}lib/compiler/"
+    cp_diff RunTime.oz "${to}lib/compiler/"
+    cp_diff TupleSyntax.oz "${to}lib/compiler/"
+    cp_diff Unnester.oz "${to}lib/compiler/"
+    cp_diff oz.el "${to}opi/emacs/"
+    cd list-comprehensions
+    for x in *; do
+        cp_diff "$x" "${to}platform-test/list-comprehensions/"
+    done
+    rm_diff "${to}lib/compiler/" "RecordComprehension.oz"
+    rm_diff "${to}platform-test/list-comprehensions/" "Record_comprehension.oz"
+    rm_diff "${to}platform-test/list-comprehensions/" "Collect.oz"
+    echo -ne "${NORMAL}"
 }
 
 doit=0
