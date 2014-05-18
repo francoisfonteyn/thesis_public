@@ -93,11 +93,9 @@ make_changes() {
     cp_diff RunTime.oz "${to}lib/compiler/"
     cp_diff TupleSyntax.oz "${to}lib/compiler/"
     cp_diff Unnester.oz "${to}lib/compiler/"
+    cp_diff listComprehension-test.oz "${to}platform-test/base/listComprehension.oz"
+    cp_diff recordComprehension-test.oz "${to}platform-test/base/recordComprehension.oz"
     cp oz.el "${to}opi/emacs/"
-    cd list-comprehensions
-    for x in *; do
-        cp_diff "$x" "${to}platform-test/list-comprehensions/"
-    done
     echo -ne "${NORMAL}"
 }
 
