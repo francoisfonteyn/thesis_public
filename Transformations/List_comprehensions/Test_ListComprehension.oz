@@ -1,6 +1,6 @@
 local
    FakeCoords = pos
-   FakeExpr1  = [forExpression(expression unit)]
+   FakeExpr1  = [forExpression(fAtom(expression pos(expression)) unit)]
    FakeExpr2  = [forExpression(expression1 unit) forExpression(expression2 conditon2)]
    FakeExpr3  = [forExpression(expression1 condition1)
                  forExpression(fColon(fInt(1 unit) expression2) condition2)
@@ -20,8 +20,8 @@ local
                  ]
    FakeLevels2 = [
                   fForComprehensionLevel(
-                     [forFlag(fAtom(lazy pos))
-                      forPattern(fVar('A' unit) forGeneratorInt(fVar('LAInts' pos) fVar('HAInts' pos) unit))]
+                     [forFlag(fAtom(lazy pos(lazyFlag)))
+                      forPattern(fVar('A' pos(varA)) forGeneratorInt(fVar('LAInts' pos) fVar('HAInts' pos) unit))]
                      unit
                      pos)
                  ]
@@ -120,13 +120,6 @@ local
                      unit
                      pos)
                  ]
-   %% returns Coord with its label set to pos --> pos(...same as what was in Coord...)
-   %% if Coord == unit then pos end
-   fun {CoordNoDebug C}
-      case {Label C} of pos then C
-      else {Adjoin C pos}
-      end
-   end
    %% create a new variable named Name
    fun {MakeVar Name}
       fVar(Name unit)
@@ -669,8 +662,6 @@ local
                                       end
                                    end
                                 end
-            Procedure
-         in
             Procedure =
             fProc(
                %% name
@@ -718,7 +709,7 @@ local
                                                     unit)
                                           else
                                              %%==========================
-                                              %% lazy with several outputs
+                                             %% lazy with several outputs
                                              fOpApplyStatement('Record.waitNeededFirst' [ResultVar] unit)
                                           end
                                           BodyStat
@@ -733,7 +724,8 @@ local
                %% flags
                nil
                %% position
-               unit)
+               COORDS)
+         in
             {PutDeclIndex 'Level' Index Procedure}
             NameVar
          end %% end of LevelGenerator
@@ -769,7 +761,7 @@ local
                              %% flags
                              nil
                              %% position
-                             unit)
+                             COORDS)
          }
          %% return name
          NameVar
@@ -786,10 +778,10 @@ local
          fLocal(
             %% all the declarations (levels and bounds)
             {DeclareAllDico}
-            %% return the resulting list-s
-            fApply(PreLevelVar nil unit)
-            %% no position
-            unit)
+            %% return the resulting list(s)
+            fApply(PreLevelVar nil COORDS)
+            %% LC position
+            COORDS)
          %% list comprehension tag
          listComprehension
          %% keep position of list comprehension
