@@ -79,6 +79,6 @@ local
 in
    {PreLevel}
 end
-%{Browse 'RecordComprehension'}{Browse R1}
+{Browse 'RecordComprehension'}{Browse R1}
 {Browse 'Equivalent'}{Browse R2}
-%R1 = (A if A =< 3 A if A > 3 suchthat F:A in r(a:1 b:2 c:3 d:4 e:5 f:6) if F \= 6 do {Browse body})
+R1 = (A if A =< 3 A if A > 3 suchthat F:A in r(a:1 b:2 c:3 d:4 e:5 f:6) if F \= 6 do {Browse body})
