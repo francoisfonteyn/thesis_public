@@ -12,13 +12,9 @@ local
          {Level1 {{ Initiators_For_Next_Level }} '#'(1:Result)}
       else %% return record
          %% create the tuple of outputs
-         local
-            {{ Next_1 ... Next_N }}
-         in
-            Result = {{ '#'(field1:Next1 ... fieldN:NextN) }}
-            %% call level 1 with its initiators and with the tuple
-            {Level1 {{ Initiators_For_Next_Level }} '#'(field1:Next1 ... fieldN:NextN)}
-         end
+         Result = {Record.make '#' [field1 ... fieldN]
+         %% call level 1 with its initiators and with the tuple
+         {Level1 {{ Initiators_For_Next_Level }} Result}
       end
    end
    %% previous level number: X (if exists)

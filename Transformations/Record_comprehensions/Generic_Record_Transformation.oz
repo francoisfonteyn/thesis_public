@@ -7,13 +7,9 @@ local
          {Level {{ Initiator_Record }} '#'(1:Result)}
       else %% return record of records
          %% create the tuple of outputs
-         local
-            {{ Next_1 ... Next_N }}
-         in
-            Result = {{ '#'(field1:Next1 ... fieldN:NextN) }}
-            %% call level with initiators and with the tuple
-            {Level {{ Initiator_Record }} '#'(field1:Next1 ... fieldN:NextN)}
-         end
+         Result = {Record.make '#' [field1 ... fieldN]}
+         %% call level with initiators and with the tuple
+         {Level {{ Initiator_Record }} Result}
       end
    end
    %% Level

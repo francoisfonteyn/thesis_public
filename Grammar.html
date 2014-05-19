@@ -184,8 +184,8 @@ a {
     <div class="altdefinition"><span class="primary">atomL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
     <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> )</div>
     <div class="altdefinition"><span class="primary">variableL</span> ( <span class="regex">star(</span><a href="#subtree">subtree</a><span class="regex">)</span> ... )</div>
-    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> ]</div>
-    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> do <a href="#phrase">phrase</a> ]</div>
+    <div class="altdefinition">[ <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> <a href="#forComprehension">forComprehension</a> <span class="regex">opt(</span>do <a href="#phrase">phrase</a><span class="regex">)</span> ]</div>
+    <div class="altdefinition">( <span class="regex">plus(</span><a href="#forExpression">forExpression</a><span class="regex">)</span> suchthat <a href="#lvl0">lvl0</a> : <a href="#lvl0">lvl0</a> in <a href="#lvl0">lvl0</a> <span class="regex">opt(</span>if <a href="#lvl0">lvl0</a><span class="regex">)</span> <span class="regex">opt(</span>do <a href="#phrase">phrase</a><span class="regex">)</span> )</div>
     <div class="altdefinition">skip</div>
     <div class="altdefinition">fail</div>
     <div class="altdefinition">self</div>

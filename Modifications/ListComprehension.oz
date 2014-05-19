@@ -51,6 +51,7 @@ define
    fun {MakeVarIndexIndex Name1 Index1 Name2 Index2}
       fVar({NewNamedName {VirtualString.toAtom Name1#Index1#Name2#Index2}} unit)
    end
+   NIL = fAtom(nil unit)
    %%==================================================
    %%==================================================
    %% the actual exported function called by Unnester
@@ -94,6 +95,21 @@ define
          else
             fLocal({List2fAnds Decls} Body unit)
          end
+      end
+      %% transforms a non-empty list: [e1 ... e2]
+      %% into an AST list: fRecord(...)
+      fun {LogicList2ASTList Fields}
+         proc {Aux Fs Next}
+            case Fs
+            of H|nil then
+               Next = fRecord(fAtom('|' unit) [H NIL])
+            [] H|T then N in
+               Next = fRecord(fAtom('|' unit) [H N])
+               {Aux T N}
+            end
+         end
+      in
+         {Aux Fields}
       end
       %% --> assigns 3 lists in the same order
       %% - Fields:        the fields features
@@ -163,23 +179,6 @@ define
          end
       in
          {Aux Fields Expressions Conditions NextVars nil}
-      end
-      %% creates a list with all the outputs
-      %% returns [fVar('Next1' unit) ... fVar('NextN' unit)]
-      %% NextsRecord is bound to the same list but with
-      %%    each element put inside a fColon with its feature
-      fun {CreateNexts Outputs Fields ?NextsRecord}
-         fun {Aux I Fs Acc1 Acc2}
-            if I == 0 then
-               NextsRecord = Acc2
-               Acc1
-            else Var in
-               Var = {MakeVarIndex 'Next' I}
-               {Aux I-1 Fs.2 Var|Acc1 fColon(Fs.1 Var)|Acc2}
-            end
-         end
-      in
-         {Aux Outputs Fields nil nil}
       end
       %% creates a list with all the outputs
       %% returns [fVar('Next1' unit) ... fVar('NextN' unit)]
@@ -289,7 +288,7 @@ define
                      %% create new variable to deal with list traversal (recursively)
                      Var = {MakeVarIndexIndex 'Range' I 'At' Index}
                      Cond = fOpApply('\\='
-                                     [Var fAtom(nil unit)]
+                                     [Var NIL]
                                      unit)
                      Dcl = fEq(V
                                fOpApply('.' [Var fInt(1 unit)] unit)
@@ -347,7 +346,7 @@ define
                   end
                   Call = fRecord(fAtom(record unit)
                                  [fOpApply('.' [ArityVar fInt(2 unit)] unit) RecordVar])
-                  Cond = fOpApply('\\=' [ArityVar fAtom(nil unit)] unit)
+                  Cond = fOpApply('\\=' [ArityVar NIL] unit)
                   {Aux T BRec|Acc NewDeeper IsLazy I+1 NewListDecl BRec|ExtraArgs Call|CallItself Cond|Conditions}
                [] forFrom(V F) then Call in % from function
                   Call = fApply(F nil unit)
@@ -607,7 +606,7 @@ define
                                            {List2fAnds {Map Fields
                                                         fun{$ F}
                                                            fEq(fOpApply('.' [ResultVar F] unit)
-                                                               fAtom(nil unit)
+                                                               NIL
                                                                 unit)
                                                         end}}
                                         else
@@ -662,23 +661,27 @@ define
                              [ResultVar]
                              %% body
                              local
-                                NextsRecord
-                                NextsToDecl = {CreateNexts Outputs Fields ?NextsRecord}
                                 Decls
                                 Initiators = {NextLevelInitiators FOR_COMPREHENSION_LIST 0 ?Decls}
                                 ResultArg = if ReturnList then
                                                [fRecord(fAtom('#' unit) [fColon(fInt(1 unit) ResultVar)])]
                                             else
-                                               [fRecord(fAtom('#' unit) NextsRecord)]
+                                               [ResultVar]
                                             end
                                 ApplyStat = fApply(Level1 {List.append Initiators ResultArg} unit)
                                 BodyStat = {LocalsIn Decls ApplyStat}
                              in
                                 if ReturnList then
                                    BodyStat
-                                else
-                                   {LocalsIn NextsToDecl fAnd(fEq(ResultVar fRecord(fAtom('#' unit) NextsRecord) unit)
-                                                              BodyStat)}
+                                else RecordMake in
+                                   RecordMake = fEq(ResultVar
+                                                    fApply(fOpApply('.'
+                                                                    [fVar('Record' unit) fAtom('make' unit)]
+                                                                    unit)
+                                                           [fAtom('#' unit) {LogicList2ASTList Fields}]
+                                                           unit)
+                                                    unit)
+                                   fAnd(RecordMake BodyStat)
                                 end
                              end
                              %% flags

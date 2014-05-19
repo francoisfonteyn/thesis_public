@@ -12,12 +12,8 @@ define
    local
       %% EQtimeuivalent
       proc {PreLevel ?Result}
-         local
-            Next1 Next2
-         in
-            Result = '#'(a:Next1 b:Next2)
-            {Level1 1 1 '#'(a:Next1 b:Next2)}
-         end
+         Result = {Record.make '#' [a b]}
+         {Level1 1 1 ?Result}
       end
       proc {Level1 A B ?Result}
          if A =< HA andthen B =< HB then

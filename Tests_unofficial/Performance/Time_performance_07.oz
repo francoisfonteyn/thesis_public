@@ -26,12 +26,8 @@ define
          end
       end
       proc {PreLevel ?Result}
-         local
-            Next1 Next2
-         in
-            Result = '#'(1:Next1 a:Next2)
-            {Level1 1 '#'(1:Next1 a:Next2)}
-         end
+         Result = {Record.make '#' [1 a]}
+         {Level1 1 ?Result}
       end
       %% level 1
       proc {Level1 A ?Result}

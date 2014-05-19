@@ -12,12 +12,8 @@ define
    local
       %% EQtimeuivalent
       proc {PreLevel ?Result}
-         local
-            Next1
-         in
-            Result = '#'(1:Next1)
-            {Level1 LL '#'(1:Next1)}
-         end
+         Result = {Record.make '#' [1]}
+         {Level1 LL Result}
       end
       %% level 1
       proc {Level1 Range ?Result}

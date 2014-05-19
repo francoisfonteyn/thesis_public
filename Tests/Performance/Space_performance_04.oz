@@ -13,12 +13,8 @@ define
       Browse = Tester.browse
       Pid = {OS.getPID}
       proc {PreLevel ?Result}
-         local
-            Next1
-         in
-            Result = '#'(1:Next1)
-            {Level1 1 {Fun} '#'(1:Next1)}
-         end
+         Result = {Record.make '#' [1]}
+         {Level1 1 {Fun} ?Result}
       end
       proc {Level1 B A ?Result}
          if B =< H then

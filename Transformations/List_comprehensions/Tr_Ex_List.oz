@@ -5,12 +5,8 @@ thread L2 =
    local
       %% pre level
       proc {PreLevel ?Result}
-         local
-            Next1 Next2 Next3
-         in
-            Result = '#'(2:Next1 1:Next2 3:Next3)
-            {Level1 [1 2 3] '#'(2:Next1 1:Next2 3:Next3)}
-         end
+         Result = {Record.make '#' [2 1 3]}
+         {Level1 [1 2 3] ?Result}
       end
       %% level 1
       proc {Level1 Range1At1 ?Result}

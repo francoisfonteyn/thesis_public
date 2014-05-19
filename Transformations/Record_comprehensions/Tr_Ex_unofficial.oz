@@ -4,12 +4,8 @@ R2 =
 local
    %% pre level
    proc {PreLevel ?Result}
-      local
-         Next1 Next2 Next3
-      in
-         Result = '#'(2:Next1 1:Next2 3:Next3)
-         {Level r(r1(1 2 3) r2(4 5 6)) '#'(2:Next1 1:Next2 3:Next3)}
-      end
+      Result = {Record.make '#' [2 1 3]}
+      {Level r(r1(1 2 3) r2(4 5 6)) ?Result}
    end
    %% for2
    proc {For2 Rec AriFull AriBool ?Result}

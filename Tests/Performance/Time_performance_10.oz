@@ -13,15 +13,11 @@ define
       Browse = Tester.browse
       %% pre level
       proc {PreLevel ?Result}
+         Result = {Record.make '#' [2 1 3]}
          local
-            Next1 Next2 Next3
+            Record1At1 = 10#20
          in
-            Result = '#'(2:Next1 1:Next2 3:Next3)
-            local
-               Record1At1 = 10#20
-            in
-               {Level1 record({Arity Record1At1} Record1At1) '#'(2:Next1 1:Next2 3:Next3)}
-            end
+            {Level1 record({Arity Record1At1} Record1At1) ?Result}
          end
       end
       %% level 1

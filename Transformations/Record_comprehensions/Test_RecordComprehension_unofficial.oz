@@ -1,54 +1,32 @@
-%%% Copyright © 2014, Université catholique de Louvain
-%%% All rights reserved.
-%%%
-%%% Redistribution and use in source and binary forms, with or without
-%%% modification, are permitted provided that the following conditions are met:
-%%%
-%%% *  Redistributions of source code must retain the above copyright notice,
-%%%    this list of conditions and the following disclaimer.
-%%% *  Redistributions in binary form must reproduce the above copyright notice,
-%%%    this list of conditions and the following disclaimer in the documentation
-%%%    and/or other materials provided with the distribution.
-%%%
-%%% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-%%% AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-%%% IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-%%% ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-%%% LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-%%% CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-%%% SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-%%% INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-%%% CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-%%% ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-%%% POSSIBILITY OF SUCH DAMAGE.
-
-%% Explanations related to this file are in
-%% https://github.com/francoisfonteyn/thesis_public/blob/master/Thesis.pdf
-%% Complete syntax
-%% https://github.com/francoisfonteyn/thesis_public/blob/master/Syntax_unofficial.pdf
-
-functor
-import
-   BootName(newNamed:NewNamedName) at 'x-oz://boot/Name'
-export
-   Compile
-prepare
-   skip
-define
+local
+   FakeCoords = pos
+   FakeExpr1  = [expression]
+   FakeExpr2  = [expression1 expression2]
+   FakeExpr3  = [fColon(fInt(1 unit) expression1) fColon(fAtom(a unit) expression2)]
+   FakeRanger1 = ranger1(r1)
+   FakeRanger2 = fWildcard(pos)
+   FakeRanger3 = fColon(feature ranger3(r3))
+   FakeRecord1 = record
+   FakeFilter1 = unit
+   FakeFilter2 = filter
+   FakeCondition1 = unit
+   FakeCondition2 = condition
+   FakeBody1 = fullBody
+   FakeBody2 = unit
    %% create a new variable named Name
    fun {MakeVar Name}
-      fVar({NewNamedName Name} unit)
+      fVar(Name unit)
    end
    %% create a new variable named by the concatenation of Name and Index
    %% Name : atom
    %% Index : positive int
    fun {MakeVarIndex Name Index}
-      fVar({NewNamedName {VirtualString.toAtom Name#Index}} unit)
+      fVar({VirtualString.toAtom Name#Index} unit)
    end
    %%================================================
    %%================================================
    %% the actual exported function called by Unnester
-   fun {Compile fRecordComprehension(EXPR_LIST RANGER RECORD CONDITION FILTER BODY COORDS)}
+   fun {Compile fRecordComprehension(EXPR_LIST RANGER RECORD FILTER CONDITION BODY COORDS)}
       %% used to keep track of all the (level) procedures to declare (see DeclareAll)
       %% used to keep trakc of all the bounds of range to declare e.g. Low..High (see DeclareAll)
       DeclarationsDictionary = {Dictionary.new}
@@ -528,4 +506,6 @@ define
          %% keep position of record comprehension
          COORDS)
    end %% end of Compile
+in
+   {Browse {Compile fRecordComprehension(FakeExpr1 FakeRanger1 FakeRecord1 FakeFilter1 FakeCondition1 FakeBody1 FakeCoords)}}
 end
