@@ -262,7 +262,7 @@ define
                   [pB '[' plus(forExpression) forComprehension opt(seq2('do' phrase) unit) ']' pE]#fun{$ [P1 _ S1 FC BD _ P2]}
                                                                                                       fListComprehension(S1 FC BD {MkPos P1 P2})
                                                                                                    end
-                  [pB '(' plus(subtree) 'suchthat' lvl0 ':' lvl0 'in' lvl0 opt(seq2('of' lvl0) unit) opt(seq2('if' lvl0) unit)
+                  [pB '(' plus(forExpression) 'suchthat' lvl0 ':' lvl0 'in' lvl0 opt(seq2('of' lvl0) unit) opt(seq2('if' lvl0) unit)
                      opt(seq2('do' phrase) unit) ')' pE]#fun{$ [P1 _ S _ F _ V _ R OF IF DO _ P2]}
                                                             fRecordComprehension(S fColon(F V) R OF IF DO {MkPos P1 P2})
                                                          end
@@ -277,8 +277,8 @@ define
                   escVar
                   )
       forExpression:alt(
-                     [subtree opt(seq2('if' lvl0) unit)]#fun{$ [S1 S2]}forExpression(S1 S2)end
                      [feature ':' atom ':' lvl0]#fun{$ [F _ A _ L]}forFeature(A fColon(F L))end
+                     [subtree opt(seq2('if' lvl0) unit)]#fun{$ [S1 S2]}forExpression(S1 S2)end
                      )
       forComprehension:plus([pB 'suchthat' plus(forListDecl) opt(seq2('if' lvl0) unit) pE])#fun{$ Ss}
                                                                                                {Map Ss fun{$ [P1 _ FD CD P2]}

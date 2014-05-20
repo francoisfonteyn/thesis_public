@@ -23,9 +23,15 @@ local
       fVar({VirtualString.toAtom Name#Index} unit)
    end
    NIL = fAtom(nil unit)
-   %%================================================
-   %%================================================
+   HASH = fAtom('#' unit)
+   INT1 = fInt(1 unit)
+   INT2 = fInt(2 unit)
+   %%==================================================
+   %%==================================================
    %% the actual exported function called by Unnester
+   %% returns the AST with the mode fListComprehensions
+   %% replaced by its transformation
+   %% Argument : the fListComprehension node
    fun {Compile fRecordComprehension(EXPR_LIST RANGER RECORD FILTER BODY COORDS)}
       %% true iff return one non-nested record instead of record of records
       ReturnOneRecord
@@ -39,6 +45,21 @@ local
       fun {DeclareAllDico}
          {List2fAnds {Dictionary.items DeclarationsDictionary}}
       end
+      %% transforms a non-empty list: [e1 ... e2]
+      %% into an AST list: fRecord(...)
+      fun {LogicList2ASTList Fields}
+         proc {Aux Fs Next}
+            case Fs
+            of H|nil then
+               Next = fRecord(fAtom('|' unit) [H NIL])
+            [] H|T then N in
+               Next = fRecord(fAtom('|' unit) [H N])
+               {Aux T N}
+            end
+         end
+      in
+         {Aux Fields}
+      end
       %% efficiently puts all the elements in the list List into fAnd's (no fSkip execpt if nil)
       %% returns an AST rooted at fAnd(...) if at least 2 elements
       %% returns first element is only one
@@ -48,17 +69,6 @@ local
          of nil   then fSkip(unit)
          [] H|nil then H
          [] H|T   then fAnd(H {List2fAnds T})
-         end
-      end
-      %% returns a fLocal AST node with
-      %% Decls as declarations
-      %% Body as body
-      %% EXCEPTION: if Decls is empty then returns only Body
-      fun {LocalsIn Decls Body}
-         if Decls == nil then
-            Body
-         else
-            fLocal({List2fAnds Decls} Body unit)
          end
       end
       %% --> assigns 3 lists in the same order
@@ -149,10 +159,10 @@ local
          end
          RecMake = fOpApply('.' [fVar('Record' unit) fAtom('make' unit)] unit)
       in
-         {Aux NextsVar Fields nil}    
+         {Aux NextsVar Fields nil}
       end
       %% returns a list of L1.I = L2.I
-      %% for recursively all I 
+      %% for recursively all I
       fun {Map2Eq L1 L2}
          fun {Aux L1 L2 Acc}
             case L1#L2
@@ -165,8 +175,8 @@ local
       in
          {Aux L1 L2 nil}
       end
-      %% returns a list of ArisArg.I = if Conditions.I then FeatVar|NextsVar.I else |NextsVar.I end 
-      %% for recursively all I 
+      %% returns a list of ArisArg.I = if Conditions.I then FeatVar|NextsVar.I else |NextsVar.I end
+      %% for recursively all I
       fun {Map31Cond ArisArg Conditions NextsVar FeatVar}
          fun {Aux L1 L2 L3 Acc}
             case L1#L2#L3
@@ -192,39 +202,37 @@ local
       %%    NextsVar.I = ArisArg.I
       %% end
       %%
-      %% for recursively all I 
-      fun {Map33if ArisArg Fields NextsVar FeatVar ValVar ResultArg}
-         fun {Aux L1 L2 L3 Acc}
-            case L1#L2#L3
-            of nil#nil#nil then Acc
-            [] (H1|T1)#(H2|T2)#(H3|T3) then Cond1 Cond2 TrueStat FalseStat If in
+      %% for recursively all I
+      fun {Map42if ArisArg Fields NextsVar Expressions FeatVar ResultArg}
+         fun {Aux L1 L2 L3 L4 Acc}
+            case L1#L2#L3#L4
+            of nil#nil#nil#nil then Acc
+            [] (H1|T1)#(H2|T2)#(H3|T3)#(H4|T4) then Cond1 Cond2 TrueStat FalseStat If in
                Cond1 = fOpApply('\\=' [H1 NIL] unit)
-               Cond2 = fOpApply('==' [FeatVar H1.1] unit)
-               TrueStat = fAnd(fEq(fOpApply('.' [fOpApply('.' [ResultArg H2] unit) FeatVar] unit) ValVar unit)
-                               fEq(H3 fOpApply('.' [H1 fInt(2 unit)] unit) unit))
+               Cond2 = fOpApply('==' [FeatVar fOpApply('.' [H1 INT1] unit)] unit)
+               TrueStat = fAnd(fEq(fOpApply('.' [fOpApply('.' [ResultArg H2] unit) FeatVar] unit) H4 unit)
+                               fEq(H3 fOpApply('.' [H1 INT2] unit) unit))
                FalseStat = fEq(H3 H1 unit)
                If = fBoolCase(fAndThen(Cond1 Cond2 unit) TrueStat FalseStat unit)
-               {Aux T1 T2 T3 If|Acc}
+               {Aux T1 T2 T3 T4 If|Acc}
             end
          end
       in
-         {Aux ArisArg Fields NextsVar nil}
+         {Aux ArisArg Fields NextsVar Expressions nil}
       end
       %% returns the feature and the value of the ranger given by user
-      %% handles wildcards and absence of fields
-      %% --> Feat#Ranger
-      fun {GetFeatRanger}
-         Feat Ranger
-         F V
+      %% handles wildcards
+      %% --> Feat # WhetherFeatGivenByUser # Val # WhetherValGivenByUser
+      fun {GetRanger}
+         fun {Aux A B}
+            if {Label A} == fWildcard then {MakeVar B}#false
+            else A#true
+            end
+         end
+         F#GF = {Aux RANGER.1 'Feat'}
+         V#GV = {Aux RANGER.2 'Val'}
       in
-         fColon(F V) = RANGER
-         Feat = if {Label F} == fWildcard then {MakeVar 'Feat'}
-                else F
-                end
-         Ranger = if {Label V} == fWildcard then {MakeVar 'Ranger'}
-                  else V
-                  end
-         Feat#Ranger
+         F#GF#V#GV
       end
       %%====================================================================================
       %% generates the PreLevel
@@ -250,11 +258,9 @@ local
                              fOpApply('\\=' [AriArg NIL] unit)
                              %% true
                              local
-                                FeatVar
-                                ValVar
-                                FeatVar#ValVar = {GetFeatRanger}
+                                FeatVar#_#ValVar#GivenVal = {GetRanger}
                                 FeatDecl = fEq(FeatVar
-                                               fOpApply('.' [AriArg fInt(1 unit)] unit)
+                                               fOpApply('.' [AriArg INT1] unit)
                                                unit)
                                 ValDecl = fEq(ValVar
                                               fOpApply('.' [RecArg FeatVar] unit)
@@ -263,7 +269,7 @@ local
                                 NextsRec
                                 NextsVar = {CreateNexts Outputs Fields 'Next' NextsRec}
                                 CallFor1 = fApply(NameVar
-                                                  [fOpApply('.' [AriArg fInt(2 unit)] unit)
+                                                  [fOpApply('.' [AriArg INT2] unit)
                                                    RecArg NextVar NextsRec]
                                                   unit)
                                 TrueStat = {List2fAnds
@@ -277,11 +283,25 @@ local
                                          in
                                             fBoolCase(FILTER TrueStat FalseStat unit)
                                          end
+                                NoWarning
+                                AllDecls = if GivenVal then
+                                              NoWarning = fAnd(
+                                                           fApply(fOpApply('.'
+                                                                           [fVar('Value' unit) fAtom(makeNeeded unit)]
+                                                                           unit)
+                                                                  [ValVar]
+                                                                  unit)
+                                                           CallFor1)
+                                              FeatDecl|ValDecl|NextVar|NextsVar
+                                           else
+                                              NoWarning = CallFor1
+                                              FeatDecl|NextVar|NextsVar
+                                           end
                              in
                                 fLocal(%% decl
-                                       {List2fAnds FeatDecl|ValDecl|NextVar|NextsVar}
+                                       {List2fAnds AllDecls}
                                        %% body
-                                       fAnd(IfStat CallFor1)
+                                       fAnd(IfStat NoWarning)
                                        %% position
                                        unit)
                              end
@@ -317,11 +337,9 @@ local
                              fOpApply('\\=' [AriArg NIL] unit)
                              %% true
                              local
-                                FeatVar
-                                ValVar
-                                FeatVar#ValVar = {GetFeatRanger}
+                                FeatVar#_#ValVar#GivenVal = {GetRanger}
                                 FeatDecl = fEq(FeatVar
-                                               fOpApply('.' [AriArg fInt(1 unit)] unit)
+                                               fOpApply('.' [AriArg INT1] unit)
                                                unit)
                                 ValDecl = fEq(ValVar
                                               fOpApply('.' [RecArg FeatVar] unit)
@@ -330,20 +348,35 @@ local
                                 NextsVar = {CreateNexts Outputs Fields 'Next' NextsRec}
                                 Call2For = fApply(NameVar
                                                   [fOpApply('.'
-                                                            [AriArg fInt(2 unit)]
+                                                            [AriArg INT2]
                                                             unit)
                                                    RecArg
                                                    NextsRec
                                                    ResultArg]
                                                   unit)
-                                AllFieldsDef = {List2fAnds {Map33if ArisArg Fields NextsVar FeatVar ValVar ResultArg}}
+                                AllFieldsDef = {List2fAnds
+                                                {Map42if ArisArg Fields NextsVar Expressions FeatVar ResultArg}}
                                 AllExceptBody = fAnd(AllFieldsDef Call2For)
+                                NoWarning
+                                AllDecls = if GivenVal then
+                                              NoWarning = fAnd(
+                                                           fApply(fOpApply('.'
+                                                                           [fVar('Value' unit) fAtom(makeNeeded unit)]
+                                                                           unit)
+                                                                  [ValVar]
+                                                                  unit)
+                                                           AllExceptBody)
+                                              FeatDecl|ValDecl|NextsVar
+                                           else
+                                              NoWarning = AllExceptBody
+                                              FeatDecl|NextsVar
+                                           end
                              in
                                 fLocal(%% decl
-                                       {List2fAnds FeatDecl|ValDecl|NextsVar}
+                                       {List2fAnds AllDecls}
                                        %% body
-                                       if BODY == unit then AllExceptBody
-                                       else fAnd(BODY AllExceptBody)
+                                       if BODY == unit then NoWarning
+                                       else fAnd(BODY NoWarning)
                                        end
                                        %% position
                                        unit)
@@ -432,7 +465,7 @@ local
                                    RecVar = {MakeVar 'Rec'}
                                    Decl = fEq(RecVar RECORD unit)
                                    ResultArg = if ReturnOneRecord then
-                                                  [fRecord(fAtom('#' unit) [fColon(fInt(1 unit) ResultVar)])]
+                                                  [fRecord(HASH [fColon(INT1 ResultVar)])]
                                                else
                                                   [ResultVar]
                                                end
@@ -448,7 +481,7 @@ local
                                                        fApply(fOpApply('.'
                                                                        [fVar('Record' unit) fAtom('make' unit)]
                                                                        unit)
-                                                              [fAtom('#' unit) Fields]
+                                                              [HASH {LogicList2ASTList Fields}]
                                                               unit)
                                                        unit)
                                       fAnd(RecordMake BodyStat)
@@ -457,8 +490,7 @@ local
                                 %% flags
                                 nil
                                 %% position
-                                COORDS)
-         }
+                                COORDS)}
          %% return name
          NameVar
       end %% end of Generator

@@ -40,7 +40,23 @@ local
             Next
             {{ Next1 ... NextN }}
          in
-            if {{ FILTER }} then
+            if {IsRecord {{ ValueGivenByUserOrNewOne }}}
+               andthen {Arity {{ ValueGivenByUserOrNewOne }}} \= nil
+               andthen {{ ConditionIfAny }} then
+               %% recursive
+               if {{ FILTER }} then
+                  {{ ForAll Features F }}
+                     AriF = {{ FeatureGivenByUserOrNewOne }}|NextF
+                  {{ end ForAll }}
+                  NewAri = {{ FeatureGivenByUserOrNewOne }}|Next
+               else
+                  {{ ForAll Features F }}
+                     AriF = NextF
+                  {{ end ForAll }}
+                  NewAri = Next
+               end
+            else
+               %% leaf
                {{ ForAll Features F }}
                   AriF = if {{ ConditionF }} then
                             {{ FeatureGivenByUserOrNewOne }}|NextF
@@ -48,11 +64,6 @@ local
                          end
                {{ end ForAll }}
                NewAri = {{ FeatureGivenByUserOrNewOne }}|Next
-            else
-               {{ ForAll Features F }}
-                  AriF = NextF
-               {{ end ForAll }}
-               NewAri = Next
             end
             {For1 Ari.2 Rec ?Next ?arities({{ 1:Next1 ... N:NextN }})}
          end
@@ -71,15 +82,32 @@ local
             {{ ValueGivenByUserOrNewOne }} = Rec.{{ FeatureGivenByUserOrNewOne }}
             {{ Next1 ... NextN }}
          in
-            {{ BodyIfAny }}
-            {{ ForAll Features F }}
-               if AriF \= nil andthen {{ FeatureGivenByUserOrNewOne }} == AriF.1 then
-                  Result.F.{{ FeatureGivenByUserOrNewOne }} = {{ ExpressionF }}
+            if {IsRecord {{ ValueGivenByUserOrNewOne }}}
+               andthen {Arity {{ ValueGivenByUserOrNewOne }}} \= nil
+               andthen {{ ConditionIfAny }} then
+               %% recursive
+               {Level
+                {Label {{ ValueGivenByUserOrNewOne }}}
+                {Arity {{ ValueGivenByUserOrNewOne }}}
+                {{ ValueGivenByUserOrNewOne }}
+                '#'({{ 1:Result.1.{{ FeatureGivenByUserOrNewOne }}
+                       ... N:Result.N.{{ FeatureGivenByUserOrNewOne }}}})
+               }
+               {{ ForAll Features F }}
                   NextF = AriF.2
-               else
-                  NextF = AriF
-               end
-            {{ end ForAll }}
+               {{ end ForAll }}
+            else
+               %% leaf
+               {{ BodyIfAny }}
+               {{ ForAll Features F }}
+                  if AriF \= nil andthen {{ FeatureGivenByUserOrNewOne }} == AriF.1 then
+                     Result.F.{{ FeatureGivenByUserOrNewOne }} = {{ ExpressionF }}
+                     NextF = AriF.2
+                  else
+                     NextF = AriF
+                  end
+               {{ end ForAll }}
+            end
             {For2 Ari.2 Rec arities(1:Next1 2:Next2) ?Result}
          end
       end
