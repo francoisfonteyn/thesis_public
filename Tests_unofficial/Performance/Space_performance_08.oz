@@ -16,63 +16,98 @@ define
       proc {PreLevel ?Result}
          Result = {Record.make '#' [2 1 3]}
          local
-            Record = Rec
+            R = Rec
          in
-            {Level {Arity Record}#Record Result}
+            {Level {Label R} {Arity R} R ?Result}
          end
       end
       %% for2
-      proc {For2 Ari Rec Result AriBool}
+      proc {For2 Ari Rec arities(2:Ari2 1:Ari1 3:Ari3) ?Result}
          if Ari \= nil then
-            if AriBool.1 then
-               local
-                  Feat = Ari.1
-                  Field = Rec.Feat
-               in
-                  if {IsRecord Field} andthen {Arity Field} \= nil then
-                     {Level {Arity Field}#Field '#'(2:Result.2.Feat 1:Result.1.Feat 3:Result.3.Feat)}
+            local
+               F = Ari.1
+               A = Rec.F
+               Next1 Next2 Next3
+            in
+               if {IsRecord A} andthen {Arity A} \= nil then
+                  {Level {Label A} {Arity A} A '#'(1:Result.1.F 2:Result.2.F 3:Result.3.F)}
+                  Next1 = Ari1.2
+                  Next2 = Ari2.2
+                  Next3 = Ari3.2
+               else
+                  if Ari2 \= nil andthen F == Ari2.1 then
+                     Result.2.F = A+2
+                     Next2 = Ari2.2
                   else
-                     Result.2.Feat = Field + 2
-                     Result.1.Feat = Field + 1
-                     Result.3.Feat = Field + 3
+                     Next2 = Ari2
+                  end
+                  if Ari1 \= nil andthen F == Ari1.1 then
+                     Result.1.F = A+1
+                     Next1 = Ari1.2
+                  else
+                     Next1 = Ari1
+                  end
+                  if Ari3 \= nil andthen F == Ari3.1 then
+                     Result.3.F = A+3
+                     Next3 = Ari3.2
+                  else
+                     Next3 = Ari3
                   end
                end
-               {For2 Ari.2 Rec Result AriBool.2}
-            else
-               {For2 Ari Rec Result AriBool.2}
+               {For2 Ari.2 Rec arities(2:Next2 1:Next1 3:Next3) ?Result}
             end
          end
       end
       %% for1
-      proc {For1 Ari Rec AriFull AriBool}
+      proc {For1 Ari Rec ?NewAri ?arities(1:Ari1 2:Ari2 3:Ari3)}
          if Ari \= nil then
             local
-               Feat = Ari.1
-               Field = Rec.Feat
-               NextFull
-               NextBool
+               F = Ari.1
+               A = Rec.F
+               Next
+               Next1 Next2 Next3
             in
-               AriBool = (Field>0)|NextBool
-               AriFull = if AriBool.1 then Feat|NextFull else NextFull end
-               {For1 Ari.2 Rec NextFull NextBool}
+               if {IsRecord A} andthen {Arity A} \= nil then
+                  if F > 0 then
+                     Ari1 = F|Next1
+                     Ari2 = F|Next2
+                     Ari3 = F|Next3
+                     NewAri = F|Next
+                  else
+                     Ari1 = Next1
+                     Ari2 = Next2
+                     Ari3 = Next3
+                     NewAri = Next
+                  end
+               else
+                  %% leaf
+                  Ari1 = F|Next1
+                  Ari2 = F|Next2
+                  Ari3 = F|Next3
+                  NewAri = F|Next
+               end
+               {For1 Ari.2 Rec ?Next ?arities(1:Next1 2:Next2 3:Next3)}
             end
          else
-            AriFull = nil
-            AriBool = nil
+            Ari1 = nil
+            Ari2 = nil
+            Ari3 = nil
+            NewAri = nil
          end
       end
       %% level
-      proc {Level Ari#Rec ?Result}
+      proc {Level Lbl Ari Rec ?Result}
          local
-            Lbl = {Label Rec}
-            AriFull
-            AriBool
+            Aris
+            NewAri
+            Next1 Next2 Next3
          in
-            {For1 Ari Rec AriFull AriBool}
-            Result.2 = {Record.make Lbl AriFull}
-            Result.1 = {Record.make Lbl AriFull}
-            Result.3 = {Record.make Lbl AriFull}
-            {For2 AriFull Rec Result AriBool}
+            Aris = arities(1:Next1 2:Next2 3:Next3)
+            {For1 Ari Rec ?NewAri ?Aris}
+            Result.1 = {Record.make Lbl Next1}
+            Result.2 = {Record.make Lbl Next2}
+            Result.3 = {Record.make Lbl Next3}
+            {For2 NewAri Rec Aris Result}
          end
       end
       Lim = 100000

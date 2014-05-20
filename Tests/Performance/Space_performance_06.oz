@@ -18,7 +18,7 @@ define
          local
             Record1At1 = 10#20
          in
-            {Level1 stacks({Arity Record1At1} {Record.toList Record1At1}) ?Result}
+            {Level1 record({Arity Record1At1} Record1At1) ?Result}
          end
       end
       %% level 1

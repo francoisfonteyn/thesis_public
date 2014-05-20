@@ -15,7 +15,7 @@ define
       %% Equivalent
       proc {PreLevel ?Result}
          Result = {Record.make '#' [1]}
-         {Level1 LL ?Result}]
+         {Level1 LL ?Result}
       end
       %% level 1
       proc {Level1 Range ?Result}
