@@ -56,7 +56,7 @@ local
                   NewAri = Next
                end
             else
-               %% leaf
+               %% terminal
                {{ ForAll Features F }}
                   AriF = if {{ ConditionF }} then
                             {{ FeatureGivenByUserOrNewOne }}|NextF
