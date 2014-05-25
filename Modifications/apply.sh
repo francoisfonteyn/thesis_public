@@ -95,13 +95,13 @@ make_changes() {
     cp_diff ListComprehension.oz "${to}lib/compiler/"
     cp_diff Macro.oz "${to}lib/compiler/"
     cp_diff Parser.oz "${to}lib/compiler/"
+    cp_diff RecordComprehension.oz "${to}lib/compiler/"
     cp_diff RunTime.oz "${to}lib/compiler/"
     cp_diff TupleSyntax.oz "${to}lib/compiler/"
     cp_diff Unnester.oz "${to}lib/compiler/"
     cp_diff listComprehension-test.oz "${to}platform-test/base/listComprehension.oz"
+    cp_diff recordComprehension-test.oz "${to}platform-test/base/recordComprehension.oz"
     cp_diff oz.el "${to}opi/emacs/"
-    rm_diff "${to}lib/compiler/" "RecordComprehension.oz"
-    rm_diff "${to}platform-test/base/" "recordComprehension.oz"
     echo -ne "${NORMAL}"
 }
 
