@@ -16,18 +16,18 @@ local
       if Ari \= nil then
          local
             F = Ari.1
-            V = Rec.F
+            A = Rec.F
             Next1 Next2
          in
             {Browse body}
             if Ari1 \= nil andthen F == Ari1.1 then
-               Result.1.F = V
+               Result.1.F = A
                Next1 = Ari1.2
             else
                Next1 = Ari1
             end
             if Ari2 \= nil andthen F == Ari2.1 then
-               Result.2.F = V
+               Result.2.F = A
                Next2 = Ari2.2
             else
                Next2 = Ari2

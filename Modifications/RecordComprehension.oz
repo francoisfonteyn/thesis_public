@@ -23,9 +23,9 @@
 %%% POSSIBILITY OF SUCH DAMAGE.
 
 %% Explanations related to this file are in
-%% https://github.com/francoisfonteyn/thesis_public/blob/master/Thesis.pdf
+%% https://github.com/francoisfonteyn/thesis_public/blob/master/OzComprehensionsThesis.pdf
 %% Complete syntax
-%% https://github.com/francoisfonteyn/thesis_public/blob/master/Syntax.pdf
+%% https://github.com/francoisfonteyn/thesis_public/blob/master/Tutorial.pdf
 
 functor
 import
@@ -127,7 +127,7 @@ define
       {Aux EXPR_LIST Fields Expressions Conditions 1 0}
    end
    %% creates a list with all the outputs
-   %% NextsVar = [fVar('Next1' unit) ... fVar('NextN' unit)]
+   %% NextsVar = [fVar(Name unit) ... fVar(Name unit)]
    %% NextsRecord is bound to the same list but with
    %%    each element put inside a fColon with its feature
    proc {CreateNexts Fields Name ?NextsRecord ?NextsVar}
@@ -144,7 +144,7 @@ define
       end
    in
       {Unzip {List.mapInd Fields fun {$ I Field}
-                                    Var = {MakeVarIndex 'Next' I}
+                                    Var = {MakeVarIndex Name I}
                                  in
                                     fColon(Field Var)#Var
                                  end}
@@ -247,14 +247,14 @@ define
    %% Argument : the fListComprehension node
    fun {Compile fRecordComprehension(EXPR_LIST RANGER RECORD FILTER BODY COORDS)}
       %% used to keep track of all the procedures to declare
-      DeclarationsDictionary = {Dictionary.new}
-      proc {PutDecl Name Value}
-         {Dictionary.put DeclarationsDictionary Name Value}
+      TopLevelDeclsBuffer = {NewCell nil}
+      proc {AddTopLevelDecl Value}
+         TopLevelDeclsBuffer := Value|@TopLevelDeclsBuffer
       end
       %% returns an AST rooted at fAnd(...)
-      %% to declare everything inside DeclarationsDictionary
-      fun {DeclareAllDict}
-         {List2fAnds {Dictionary.items DeclarationsDictionary}}
+      %% to declare everything inside TopLevelDeclsBuffer (levels, ...)
+      fun {GetTopLevelDecls}
+         {List2fAnds @TopLevelDeclsBuffer}
       end
       %% generates the PreLevel
       fun {Generator}
@@ -269,7 +269,7 @@ define
             ArisRec ArisArg
             {CreateNexts Fields 'Ari' ArisRec ArisArg}
          in
-            {PutDecl 'For1'
+            {AddTopLevelDecl
              fProc(%% name
                    NameVar
                    %% arguments
@@ -343,7 +343,7 @@ define
             {CreateNexts Fields 'Ari' ArisRec ArisArg}
             ResultArg = {MakeVar 'Result'}
          in
-            {PutDecl 'For2'
+            {AddTopLevelDecl
              fProc(%% name
                    NameVar
                    %% arguments
@@ -400,7 +400,7 @@ define
          end %% end of For2Generator
          %%-------------------------------------------------------------------
          %% generates the procedure AST for the level (name is <Name/'Level'>)
-         %% puts it in the dictionary DeclarationsDictionary at key 'Level'
+         %% puts it in the cell TopLevelDeclsBuffer at key 'Level'
          %% returns the name (fVar) of the procedure generated
          fun {LevelGenerator}
             %% the name of the function of the level
@@ -414,7 +414,7 @@ define
             %% record argument of the level
             RecArg = {MakeVar 'Rec'}
          in
-            {PutDecl 'Level'
+            {AddTopLevelDecl
              fProc(
                 %% name
                 NameVar
@@ -462,9 +462,8 @@ define
          ResultVar = {MakeVar 'Result'}
          LevelVar  = {LevelGenerator}
       in
-         %% put PreLevel in Dict at key 'PreLevel'
-         {PutDecl 'PreLevel' fProc(
-                                %% name
+         %% put PreLevel in TopLevelDeclsBuffer
+         {AddTopLevelDecl fProc(%% name
                                 NameVar
                                 %% arguments
                                 [ResultVar]
@@ -519,7 +518,7 @@ define
       fStepPoint(
          fLocal(
             %% all the declarations (levels and bounds)
-            {DeclareAllDict}
+            {GetTopLevelDecls}
             %% return the resulting record
             fApply(PreLevelVar nil COORDS)
             %% no position
