@@ -17,18 +17,18 @@ Most of the content is duplicated because there exist small differences between 
 ##### Graphs:          
 A bunch of useful graphs.
 ##### Modifications:
-A copy of all the modified files in Mozart2.
+A copy of all the modified files in Mozart2. Several versions for several purposes: official, linux, mavericks and unofficial.
 
     Modifications/apply.sh
+##### Tests
+All the tests.
 ##### Transformations: 
 The functional transformations used for list comprehensions.
 ##### mozart2: 
-The mozart2 sources.
+Link to our fork of Mozart2.
 ##### Grammar.html: 
 The updated grammar of Mozart2 in HTML.
 ##### OzComprehensionsThesis.pdf:      
 The report that contains an introduction, the implementation as well as examples and explanations.
-##### Tests
-All the tests.
 ##### Tutorial.pdf
 A tutorial to get started with comprehensions.
